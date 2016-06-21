@@ -2,10 +2,10 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    './public/index.js'
+    './public/client/index.js'
   ],
   output: {
-    path: __dirname,
+    path: __dirname + '/public/',
     filename: 'bundle.js'
   },
   module: {

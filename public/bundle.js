@@ -47,19 +47,19 @@
   \******************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! ./public/index.js */1);
+	module.exports = __webpack_require__(/*! ./public/client/index.js */1);
 
 
 /***/ },
 /* 1 */
-/*!*************************!*\
-  !*** ./public/index.js ***!
-  \*************************/
+/*!********************************!*\
+  !*** ./public/client/index.js ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _d = __webpack_require__(/*! ./../lib/d3 */ 2);
+	var _d = __webpack_require__(/*! ./../../lib/d3 */ 2);
 	
 	var _d2 = _interopRequireDefault(_d);
 	
@@ -67,7 +67,7 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _statChartBuilder = __webpack_require__(/*! ./assets/statChartBuilder */ 4);
+	var _statChartBuilder = __webpack_require__(/*! ./../assets/statChartBuilder */ 4);
 	
 	var _statChartBuilder2 = _interopRequireDefault(_statChartBuilder);
 	
