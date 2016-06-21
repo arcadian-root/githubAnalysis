@@ -1,0 +1,19 @@
+{
+  "name": "github_data_analysis",
+  "version": "1.0.0",
+  "description": "Analyze github data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marioyeung/githubDataAnalysis.git"
+  },
+  "author": "Andy Tran, Gabe Fils, Mario Yeung, Michael Daly",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/marioyeung/githubDataAnalysis/issues"
+  },
+  "homepage": "https://github.com/arcadian-root/githubDataAnalysis"
+}
