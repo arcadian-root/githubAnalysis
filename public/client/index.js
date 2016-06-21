@@ -1,6 +1,6 @@
-import d3 from './../lib/d3'
+import d3 from './../../lib/d3'
 import $ from 'jquery';
-import chart from './assets/statChartBuilder';
+import chart from './../assets/statChartBuilder';
 
 // mock data
 // arr[0]: average fork # (y)

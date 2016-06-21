@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 //TODO: define environment variable
 //TODO: setup authentication if hnecessary
 
-app.use(express.static(__dirname + "/../"));
+app.use(express.static(__dirname + "/../public/"));
 
 // middleware
 app.use(bodyParser.json());
