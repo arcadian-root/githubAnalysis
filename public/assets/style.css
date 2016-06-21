@@ -1,0 +1,38 @@
+.axis {
+  font: 10px sans-serif;
+}
+
+.graph {
+  border: 1px solid blue;
+  width: 65%;
+  min-height: 500px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.area {
+  fill: lightsteelblue;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.dot {
+  r: 2px;
+  fill: none;
+  stroke: steelblue;
+  stroke: 1.5px;
+}
+
+.dot:hover {
+  r: 5px;
+  fill: black;
+}
