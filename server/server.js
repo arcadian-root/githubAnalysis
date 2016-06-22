@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
+
+var requestHandler = require('./requestHandler');
 var config = require('./../config/config');
 
 // authentication
@@ -47,10 +49,7 @@ app.use(bodyParser.json());
 
 // TODO: setup endpoints
 
-// Wildcard router
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, './../public', 'index.html'))
-})
+app.get('/sample', requestHandler.wildcard);
 
 // TODO: accept env variable if procided
 var PORT = process.env.PORT || 3000;
