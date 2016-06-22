@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 // TODO: setup endpoints
 
 // TODO: accept env variable if procided
-app.listen(3000, function(){
-  console.log('Listen to the port 3000');
+var PORT = process.env.PORT || 3000;
+app.listen(PORT, function(){
+  console.log('Listen to the port', PORT);
 });
