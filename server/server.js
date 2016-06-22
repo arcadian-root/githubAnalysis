@@ -1,20 +1,23 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var config = require('./../config/config');
+
 
 // authentication
 var session = require('express-session');
 var passport = require('passport');
+app.use(passport.initialize());
 // TODO: create and require a config file
-var GITHUB_CLIENT_ID = process.env.BOCKS_CLIENT_ID || config.BOCKS_CLIENT_ID;
-var GITHUB_CLIENT_SECRET = process.env.BOCKS_CLIENT_SECRET || config.BOCKS_CLIENT_SECRET;
-var BOCKS_SECRET = process.env.BOCKS_SESSION_SECRET || config.BOCKS_SESSION_SECRET;
+var GITHUB_CLIENT_ID = process.env.CLIENT_ID || config.CLIENT_ID;
+var GITHUB_CLIENT_SECRET = process.env.CLIENT_SECRET || config.CLIENT_SECRET;
+var SECRET = process.env.SESSION_SECRET || config.SESSION_SECRET;
 // Configure Github authentication strategy
 var Strategy = require('passport-github').Strategy;
 passport.use(new Strategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL:
+    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
@@ -23,8 +26,7 @@ passport.use(new Strategy({
   }
 ));
 // Authenticate requests
-app.get('/auth/github',
-  passport.authenticate('github'));
+app.get('/auth/github', passport.authenticate('github'));
 
 app.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/login' }),
