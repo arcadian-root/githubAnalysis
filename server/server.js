@@ -19,12 +19,10 @@ var Strategy = require('passport-github').Strategy;
 passport.use(new Strategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    callbackURL: "http://localhost:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
+    return cb(null, profile);
   }
 ));
 // Authenticate requests
@@ -37,6 +35,16 @@ app.get('/auth/github/callback',
     // TODO: define this url dashboard is created
     res.redirect('/');
   });
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+
 
 
 //TODO: define environment variable
