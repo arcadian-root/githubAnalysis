@@ -7,8 +7,8 @@ import chart from './../assets/statChartBuilder';
 
 // import other components
 import Main from './main';
-import Nav from './nav';
 import Mock from './mock';
+import Sample from './sample';
 
 // <Route path='/' component={Login}/>
 // <Route path='/login' component={Login}/>
@@ -21,6 +21,7 @@ render((
   <Router history={browserHistory}>
     <Route component={Main}>
       <Route path='/' component={Mock} /> 
+      <Route path='/sample' component={Sample} />
     </Route>
   </Router>
 ), document.getElementById('container'));

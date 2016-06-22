@@ -2,11 +2,12 @@ import d3 from './../../lib/d3';
 import statHandler from './statHandler';
 
 const chart = (target, htmlID, dataSet, xUpper, xName = 'X', yUpper, yName = 'Y') => {
-  let graph = d3.select(`#${target}`)
+  console.log(target);
+  let graph = d3.select(target)
               .append('svg')
               .classed('graph', true)
               .attr('id', htmlID);
-
+  console.log(graph);
   // Calculate the dimension of graph
   const _graphDimension = document.getElementById(htmlID).getBoundingClientRect();
   const [ _graphWidth, _graphHeight ] = [ _graphDimension.width, _graphDimension.height ];
