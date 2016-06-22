@@ -3,7 +3,6 @@ var app = express();
 var bodyParser = require('body-parser');
 var config = require('./../config/config');
 
-
 // authentication
 var session = require('express-session');
 var passport = require('passport');

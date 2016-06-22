@@ -1,5 +1,0 @@
-const CLINET_ID;
-const CLINET_SECRET;
-const SESSION_SECRET;
-
-export default { CLINET_ID, CLINET_SECRET, SESSION_SECRET };
