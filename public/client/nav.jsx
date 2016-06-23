@@ -8,9 +8,9 @@ import { Link, browserHistory } from 'react-router';
 let nav = (props) => (
   <Navbar>
     <Nav>
-      <NavItem><Link to='/'>Home</Link></NavItem>
-      <NavItem><Link to='sample'>Sample</Link></NavItem>
-      <NavItem><Link to='login'>Login</Link></NavItem>
+      <Link to='/'>Home</Link>
+      <Link to='sample'>Sample</Link>
+      <a href='/auth/github/callback'>Login</a>
     </Nav>
   </Navbar>
 )
