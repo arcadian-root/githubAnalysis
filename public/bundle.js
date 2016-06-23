@@ -37034,15 +37034,14 @@
 	            { to: 'sample' },
 	            'Sample'
 	          ),
-	          _react2.default.createElement(
-	            'a',
-	            { href: '/auth/github/callback' },
-	            'Login'
-	          ),
-	          _react2.default.createElement(
+	          this.state.userInfo ? _react2.default.createElement(
 	            'a',
 	            { href: '/logout' },
 	            'Logout'
+	          ) : _react2.default.createElement(
+	            'a',
+	            { href: '/auth/github/callback' },
+	            'Login'
 	          )
 	        )
 	      );

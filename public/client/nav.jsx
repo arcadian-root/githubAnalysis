@@ -30,8 +30,9 @@ class Navigator extends React.Component {
         <Nav>
           <Link to='/'>Home</Link>
           <Link to='sample'>Sample</Link>
-          <a href='/auth/github/callback'>Login</a>
-          <a href='/logout'>Logout</a>
+
+          {this.state.userInfo ? <a href='/logout'>Logout</a> : <a href='/auth/github/callback'>Login</a>}
+          
         </Nav>
       </Navbar>
     )
