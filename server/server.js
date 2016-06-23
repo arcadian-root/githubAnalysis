@@ -2,18 +2,18 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
-
 var requestHandler = require('./requestHandler');
-var config = require('./../config/config');
-
-// authentication
 var session = require('express-session');
 var passport = require('passport');
-app.use(passport.initialize());
-// TODO: create and require a config file
+var config = require('./../config/config');
 var GITHUB_CLIENT_ID = process.env.CLIENT_ID || config.CLIENT_ID;
 var GITHUB_CLIENT_SECRET = process.env.CLIENT_SECRET || config.CLIENT_SECRET;
 var SECRET = process.env.SESSION_SECRET || config.SESSION_SECRET;
+var userInfo = null;
+
+// authentication
+app.use(passport.initialize());
+app.use(passport.session());
 // Configure Github authentication strategy
 var Strategy = require('passport-github').Strategy;
 passport.use(new Strategy({
@@ -29,11 +29,21 @@ passport.use(new Strategy({
 app.get('/auth/github', passport.authenticate('github'));
 
 app.get('/auth/github/callback', 
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate('github', { failureRedirect: '/' }),
+  // Successful authentication, redirect dashboard.
   function(req, res) {
-    // Successful authentication, redirect dashboard.
+    // Get user data
+    userInfo = req.user;
     res.redirect('/dashboard');
-  });
+  }
+);
+
+app.get('/logout', function(req, res) {
+ console.log('in /user/logout');
+ userInfo = null;
+ req.logout();
+ res.redirect('/');
+});
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -44,18 +54,15 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
-
-
-//TODO: define environment variable
-//TODO: setup authentication if hnecessary
-
-app.use(express.static(__dirname + "/../public/"));
-
 // middleware
+app.use(express.static(__dirname + "/../public/"));
 app.use(bodyParser.json());
 
-// TODO: setup endpoints
-
+// TODO: setup endpointss
+app.get('/user/info', function(req, res) {
+  console.log(userInfo)
+  res.send(userInfo);
+})
 app.get('/sample', requestHandler.wildcard);
 app.get('/dashboard', requestHandler.wildcard);
 

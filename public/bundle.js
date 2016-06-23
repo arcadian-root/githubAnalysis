@@ -117,7 +117,7 @@
 	    _react2.default.createElement(_reactRouter.Route, { path: '/sample', component: _sample2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/dashboard', component: _dashboard2.default })
 	  )
-	), document.getElementById('container'));
+	), document.getElementById('root'));
 	
 	// mock data
 	// arr[0]: average fork # (y)
@@ -36964,6 +36964,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(/*! react */ 2);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -36974,35 +36976,82 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 169);
 	
+	var _jquery = __webpack_require__(/*! jquery */ 231);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var nav = function nav(props) {
-	  return _react2.default.createElement(
-	    _reactBootstrap.Navbar,
-	    null,
-	    _react2.default.createElement(
-	      _reactBootstrap.Nav,
-	      null,
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/' },
-	        'Home'
-	      ),
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: 'sample' },
-	        'Sample'
-	      ),
-	      _react2.default.createElement(
-	        'a',
-	        { href: '/auth/github/callback' },
-	        'Login'
-	      )
-	    )
-	  );
-	};
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	exports.default = nav;
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Navigator = function (_React$Component) {
+	  _inherits(Navigator, _React$Component);
+	
+	  function Navigator(props) {
+	    _classCallCheck(this, Navigator);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navigator).call(this, props));
+	
+	    _this.state = {
+	      userInfo: null
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Navigator, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      _jquery2.default.ajax({
+	        method: 'GET',
+	        url: '/user/info'
+	      }).done(function (data) {
+	        console.log(data);
+	        _this2.setState({ userInfo: data });
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _reactBootstrap.Navbar,
+	        null,
+	        _react2.default.createElement(
+	          _reactBootstrap.Nav,
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            'Home'
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'sample' },
+	            'Sample'
+	          ),
+	          this.state.userInfo ? _react2.default.createElement(
+	            'a',
+	            { href: '/logout' },
+	            'Logout'
+	          ) : _react2.default.createElement(
+	            'a',
+	            { href: '/auth/github/callback' },
+	            'Login'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Navigator;
+	}(_react2.default.Component);
+	
+	exports.default = Navigator;
 
 /***/ },
 /* 236 */
