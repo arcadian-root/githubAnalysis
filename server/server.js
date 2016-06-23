@@ -31,9 +31,8 @@ app.get('/auth/github', passport.authenticate('github'));
 app.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
-    // Successful authentication, redirect home.
-    // TODO: define this url dashboard is created
-    res.redirect('/sample');
+    // Successful authentication, redirect dashboard.
+    res.redirect('/dashboard');
   });
 
 passport.serializeUser(function(user, done) {
@@ -58,6 +57,7 @@ app.use(bodyParser.json());
 // TODO: setup endpoints
 
 app.get('/sample', requestHandler.wildcard);
+app.get('/dashboard', requestHandler.wildcard);
 
 // TODO: accept env variable if procided
 var PORT = process.env.PORT || 3000;

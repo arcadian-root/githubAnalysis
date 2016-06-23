@@ -9,6 +9,7 @@ import chart from './../assets/statChartBuilder';
 import Main from './main';
 import Mock from './mock';
 import Sample from './sample';
+import Dashboard from './dashboard';
 
 // <Route path='/' component={Login}/>
 // <Route path='/login' component={Login}/>
@@ -22,6 +23,7 @@ render((
     <Route component={Main}>
       <Route path='/' component={Mock} /> 
       <Route path='/sample' component={Sample} />
+      <Route path='/dashboard' component={Dashboard} />
     </Route>
   </Router>
 ), document.getElementById('container'));
