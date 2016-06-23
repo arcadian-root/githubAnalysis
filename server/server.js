@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 
 var requestHandler = require('./requestHandler');
-var config = require('./../config/config');
+var config = require('../config/config.js');
 
 // authentication
 var session = require('express-session');
