@@ -36997,6 +36997,11 @@
 	        'a',
 	        { href: '/auth/github/callback' },
 	        'Login'
+	      ),
+	      _react2.default.createElement(
+	        'a',
+	        { href: '/logout' },
+	        'Logout'
 	      )
 	    )
 	  );

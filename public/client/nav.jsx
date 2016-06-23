@@ -11,6 +11,7 @@ let nav = (props) => (
       <Link to='/'>Home</Link>
       <Link to='sample'>Sample</Link>
       <a href='/auth/github/callback'>Login</a>
+      <a href='/logout'>Logout</a>
     </Nav>
   </Navbar>
 )

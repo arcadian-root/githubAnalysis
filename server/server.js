@@ -2,18 +2,17 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
-
 var requestHandler = require('./requestHandler');
-var config = require('./../config/config');
-
-// authentication
 var session = require('express-session');
 var passport = require('passport');
-app.use(passport.initialize());
-// TODO: create and require a config file
+var config = require('./../config/config');
 var GITHUB_CLIENT_ID = process.env.CLIENT_ID || config.CLIENT_ID;
 var GITHUB_CLIENT_SECRET = process.env.CLIENT_SECRET || config.CLIENT_SECRET;
 var SECRET = process.env.SESSION_SECRET || config.SESSION_SECRET;
+
+// authentication
+app.use(passport.initialize());
+app.use(passport.session());
 // Configure Github authentication strategy
 var Strategy = require('passport-github').Strategy;
 passport.use(new Strategy({
@@ -43,7 +42,11 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-
+app.get('/logout', function(req, res) {
+ console.log('in /user/logout');
+ req.logout();
+ res.redirect('/');
+});
 
 
 //TODO: define environment variable
