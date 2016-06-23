@@ -26,7 +26,7 @@ render((
       <Route path='/dashboard' component={Dashboard} />
     </Route>
   </Router>
-), document.getElementById('container'));
+), document.getElementById('root'));
 
 
 // mock data

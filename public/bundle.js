@@ -117,7 +117,7 @@
 	    _react2.default.createElement(_reactRouter.Route, { path: '/sample', component: _sample2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/dashboard', component: _dashboard2.default })
 	  )
-	), document.getElementById('container'));
+	), document.getElementById('root'));
 	
 	// mock data
 	// arr[0]: average fork # (y)
