@@ -33,7 +33,7 @@ app.get('/auth/github/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     // TODO: define this url dashboard is created
-    res.redirect('/');
+    res.redirect('/sample');
   });
 
 passport.serializeUser(function(user, done) {

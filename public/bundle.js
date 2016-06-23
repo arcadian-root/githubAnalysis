@@ -36979,31 +36979,19 @@
 	      _reactBootstrap.Nav,
 	      null,
 	      _react2.default.createElement(
-	        _reactBootstrap.NavItem,
-	        null,
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/' },
-	          'Home'
-	        )
+	        _reactRouter.Link,
+	        { to: '/' },
+	        'Home'
 	      ),
 	      _react2.default.createElement(
-	        _reactBootstrap.NavItem,
-	        null,
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'sample' },
-	          'Sample'
-	        )
+	        _reactRouter.Link,
+	        { to: 'sample' },
+	        'Sample'
 	      ),
 	      _react2.default.createElement(
-	        _reactBootstrap.NavItem,
-	        null,
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'login' },
-	          'Login'
-	        )
+	        'a',
+	        { href: '/auth/github/callback' },
+	        'Login'
 	      )
 	    )
 	  );
