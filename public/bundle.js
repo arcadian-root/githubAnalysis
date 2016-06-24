@@ -61968,7 +61968,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'Dashboard is under conrstruction ...',
+	        'Dashboard is under construction ...',
 	        _react2.default.createElement(_userRepoGraph2.default, null),
 	        _react2.default.createElement(_organization2.default, null)
 	      );

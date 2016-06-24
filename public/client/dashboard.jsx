@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
   render () {
     return (
       <div>
-        Dashboard is under conrstruction ...
+        Dashboard is under construction ...
         <UserRepoGraph />
         <Organization />
       </div>
