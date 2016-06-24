@@ -1,5 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
+import UserRepoGraph from './userRepoGraph';
+import Organization from './organization';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -8,7 +10,11 @@ class Dashboard extends React.Component {
 
   render () {
     return (
-      <div> Dashboard is coming soon ... </div>
+      <div>
+        Dashboard is under construction ...
+        <UserRepoGraph />
+        <Organization />
+      </div>
     )
   }
 }

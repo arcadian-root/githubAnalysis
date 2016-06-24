@@ -12,6 +12,7 @@ import store from './../redux/store';
 import Main from './main';
 import Mock from './mock';
 import Sample from './sample';
+import userRepoGraph from './userRepoGraph'
 import Dashboard from './dashboard';
 
 // <Route path='/' component={Login}/>

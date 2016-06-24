@@ -97,7 +97,11 @@
 	
 	var _sample2 = _interopRequireDefault(_sample);
 	
-	var _dashboard = __webpack_require__(/*! ./dashboard */ 541);
+	var _userRepoGraph = __webpack_require__(/*! ./userRepoGraph */ 541);
+	
+	var _userRepoGraph2 = _interopRequireDefault(_userRepoGraph);
+	
+	var _dashboard = __webpack_require__(/*! ./dashboard */ 542);
 	
 	var _dashboard2 = _interopRequireDefault(_dashboard);
 	
@@ -110,9 +114,6 @@
 	//   <Route path='dashboard' component={Feed}/>
 	//   <Route path='post/:arcId' component={FacebookPost}/>
 	// </Route>
-	
-	
-	// import other components
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
@@ -132,6 +133,9 @@
 	// mock data
 	// arr[0]: average fork # (y)
 	// arr[1]: followers # (x)
+	
+	
+	// import other components
 	var mockForkData = [[100, 300], [200, 500], [400, 100], [500, 1600], [1800, 1000], [500, 10100], [1500, 10500], [1300, 10200], [1200, 3000], [200, 10600], [500, 100], [50, 4000], [25, 10], [900, 17511], [50, 10000], [30, 11500], [2000, 10000], [2000, 10000], [2000, 10000], [2000, 100], [2000, 100], [2000, 1000], [2, 1], [4, 2], [6, 3], [8, 4], [10, 5], [1300, 18000]];
 	
 	// chart('d3Graph', 'graph1', mockForkData, 25000, 'Followers', 2000, 'Average Fork');
@@ -61860,9 +61864,9 @@
 
 /***/ },
 /* 541 */
-/*!*************************************!*\
-  !*** ./public/client/dashboard.jsx ***!
-  \*************************************/
+/*!*****************************************!*\
+  !*** ./public/client/userRepoGraph.jsx ***!
+  \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61887,6 +61891,68 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var UserRepoGraph = function (_React$Component) {
+	  _inherits(UserRepoGraph, _React$Component);
+	
+	  function UserRepoGraph(props) {
+	    _classCallCheck(this, UserRepoGraph);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(UserRepoGraph).call(this, props));
+	  }
+	
+	  _createClass(UserRepoGraph, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        ' Graph is coming soon '
+	      );
+	    }
+	  }]);
+	
+	  return UserRepoGraph;
+	}(_react2.default.Component);
+	
+	exports.default = UserRepoGraph;
+
+/***/ },
+/* 542 */
+/*!*************************************!*\
+  !*** ./public/client/dashboard.jsx ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 39);
+	
+	var _userRepoGraph = __webpack_require__(/*! ./userRepoGraph */ 541);
+	
+	var _userRepoGraph2 = _interopRequireDefault(_userRepoGraph);
+	
+	var _organization = __webpack_require__(/*! ./organization */ 543);
+	
+	var _organization2 = _interopRequireDefault(_organization);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
 	var Dashboard = function (_React$Component) {
 	  _inherits(Dashboard, _React$Component);
 	
@@ -61902,7 +61968,9 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        ' Dashboard is coming soon ... '
+	        'Dashboard is under construction ...',
+	        _react2.default.createElement(_userRepoGraph2.default, null),
+	        _react2.default.createElement(_organization2.default, null)
 	      );
 	    }
 	  }]);
@@ -61911,6 +61979,60 @@
 	}(_react2.default.Component);
 	
 	exports.default = Dashboard;
+
+/***/ },
+/* 543 */
+/*!****************************************!*\
+  !*** ./public/client/organization.jsx ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 39);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Organization = function (_React$Component) {
+	  _inherits(Organization, _React$Component);
+	
+	  function Organization(props) {
+	    _classCallCheck(this, Organization);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Organization).call(this, props));
+	  }
+	
+	  _createClass(Organization, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        ' Organization is coming soon '
+	      );
+	    }
+	  }]);
+	
+	  return Organization;
+	}(_react2.default.Component);
+	
+	exports.default = Organization;
 
 /***/ }
 /******/ ]);
