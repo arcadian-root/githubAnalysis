@@ -5,48 +5,43 @@ import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
 import { Link, browserHistory } from 'react-router';
 import $ from 'jquery';
+import { connect } from 'react-redux';
+import actions from './../redux/actions'
 
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.userInfoState // state in 'store' pbject
+  }
+}
 
-const NavView = (props) => (
-  <Navbar>
-    <Nav>
-      <Link to='/'>Home</Link>
-      <Link to='sample'>Sample</Link>
-
-      {props.userInfo ? <a href='/logout'>Logout</a> : <a href='/auth/github/callback'>Login</a>}
-      
-    </Nav>
-  </Navbar>
-)
-
-class NavContainer extends React.Component { 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      userInfo: null
-    }
+class Navigator extends React.Component {
+  constructor (props) {
+    super(props);
   }
 
   componentDidMount () {
-    console.log(this.context.store);
     $.ajax({
-      method: 'GET',
-      url: '/user/info'
-    }).done( (data) => {
-      console.log(data)
-      this.setState({userInfo: data});
-    });
+        method: 'GET',
+        url: '/user/info'
+      }).done( (data) => {
+        console.log(data)
+        this.props.dispatch(actions.addUserInfo(data));
+      });
   }
 
   render () {
-   return (
-      <NavView userInfo={this.state.userInfo} />
+    return (
+      <Navbar>
+        <Nav>
+          <Link to='/'>Home</Link>
+          <Link to='sample'>Sample</Link>
+
+          {this.props.userInfo ? <a href='/logout'>Logout</a> : <a href='/auth/github/callback'>Login</a>}
+          
+        </Nav>
+      </Navbar>
     )
   }
 }
 
-NavContainer.contextTypes = {
-  store: React.PropTypes.object
-}
-
-export default NavContainer;
+export default connect(mapStateToProps)(Navigator);

@@ -38552,6 +38552,12 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 169);
+	
+	var _actions = __webpack_require__(/*! ./../redux/actions */ 521);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38560,79 +38566,71 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var NavView = function NavView(props) {
-	  return _react2.default.createElement(
-	    _reactBootstrap.Navbar,
-	    null,
-	    _react2.default.createElement(
-	      _reactBootstrap.Nav,
-	      null,
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/' },
-	        'Home'
-	      ),
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: 'sample' },
-	        'Sample'
-	      ),
-	      props.userInfo ? _react2.default.createElement(
-	        'a',
-	        { href: '/logout' },
-	        'Logout'
-	      ) : _react2.default.createElement(
-	        'a',
-	        { href: '/auth/github/callback' },
-	        'Login'
-	      )
-	    )
-	  );
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    userInfo: state.userInfoState // state in 'store' pbject
+	  };
 	};
 	
-	var NavContainer = function (_React$Component) {
-	  _inherits(NavContainer, _React$Component);
+	var Navigator = function (_React$Component) {
+	  _inherits(Navigator, _React$Component);
 	
-	  function NavContainer(props, context) {
-	    _classCallCheck(this, NavContainer);
+	  function Navigator(props) {
+	    _classCallCheck(this, Navigator);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NavContainer).call(this, props, context));
-	
-	    _this.state = {
-	      userInfo: null
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Navigator).call(this, props));
 	  }
 	
-	  _createClass(NavContainer, [{
+	  _createClass(Navigator, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
 	
-	      console.log(this.context.store);
 	      _jquery2.default.ajax({
 	        method: 'GET',
 	        url: '/user/info'
 	      }).done(function (data) {
 	        console.log(data);
-	        _this2.setState({ userInfo: data });
+	        _this2.props.dispatch(_actions2.default.addUserInfo(data));
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(NavView, { userInfo: this.state.userInfo });
+	      return _react2.default.createElement(
+	        _reactBootstrap.Navbar,
+	        null,
+	        _react2.default.createElement(
+	          _reactBootstrap.Nav,
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            'Home'
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'sample' },
+	            'Sample'
+	          ),
+	          this.props.userInfo ? _react2.default.createElement(
+	            'a',
+	            { href: '/logout' },
+	            'Logout'
+	          ) : _react2.default.createElement(
+	            'a',
+	            { href: '/auth/github/callback' },
+	            'Login'
+	          )
+	        )
+	      );
 	    }
 	  }]);
 	
-	  return NavContainer;
+	  return Navigator;
 	}(_react2.default.Component);
 	
-	NavContainer.contextTypes = {
-	  store: _react2.default.PropTypes.object
-	};
-	
-	exports.default = NavContainer;
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Navigator);
 
 /***/ },
 /* 258 */
@@ -58588,7 +58586,34 @@
 	exports.ValidComponentChildren = _ValidComponentChildren3['default'];
 
 /***/ },
-/* 521 */,
+/* 521 */
+/*!*********************************!*\
+  !*** ./public/redux/actions.js ***!
+  \*********************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// ADD_USER_INFO
+	var addUserInfo = function addUserInfo(userInfo) {
+	  return {
+	    type: 'ADD_USER_INFO',
+	    userInfo: userInfo
+	  };
+	};
+	
+	// REMOVE_USER_INFO
+	var removeUserInfo = {
+	  type: 'REMOVE_USER_INFO',
+	  userInfo: null
+	};
+	
+	exports.default = { addUserInfo: addUserInfo, removeUserInfo: removeUserInfo };
+
+/***/ },
 /* 522 */
 /*!********************************!*\
   !*** ./public/client/mock.jsx ***!
