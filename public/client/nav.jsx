@@ -20,14 +20,15 @@ const NavView = (props) => (
 )
 
 class NavContainer extends React.Component { 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       userInfo: null
     }
   }
 
   componentDidMount () {
+    console.log(this.context.store);
     $.ajax({
       method: 'GET',
       url: '/user/info'
@@ -42,6 +43,10 @@ class NavContainer extends React.Component {
       <NavView userInfo={this.state.userInfo} />
     )
   }
+}
+
+NavContainer.contextTypes = {
+  store: React.PropTypes.object
 }
 
 export default NavContainer;

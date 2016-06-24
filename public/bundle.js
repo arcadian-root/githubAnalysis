@@ -38593,10 +38593,10 @@
 	var NavContainer = function (_React$Component) {
 	  _inherits(NavContainer, _React$Component);
 	
-	  function NavContainer(props) {
+	  function NavContainer(props, context) {
 	    _classCallCheck(this, NavContainer);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NavContainer).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NavContainer).call(this, props, context));
 	
 	    _this.state = {
 	      userInfo: null
@@ -38609,6 +38609,7 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 	
+	      console.log(this.context.store);
 	      _jquery2.default.ajax({
 	        method: 'GET',
 	        url: '/user/info'
@@ -38626,6 +38627,10 @@
 	
 	  return NavContainer;
 	}(_react2.default.Component);
+	
+	NavContainer.contextTypes = {
+	  store: _react2.default.PropTypes.object
+	};
 	
 	exports.default = NavContainer;
 
