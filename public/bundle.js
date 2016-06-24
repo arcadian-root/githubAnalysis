@@ -38560,13 +38560,43 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Navigator = function (_React$Component) {
-	  _inherits(Navigator, _React$Component);
+	var NavView = function NavView(props) {
+	  return _react2.default.createElement(
+	    _reactBootstrap.Navbar,
+	    null,
+	    _react2.default.createElement(
+	      _reactBootstrap.Nav,
+	      null,
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/' },
+	        'Home'
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: 'sample' },
+	        'Sample'
+	      ),
+	      props.userInfo ? _react2.default.createElement(
+	        'a',
+	        { href: '/logout' },
+	        'Logout'
+	      ) : _react2.default.createElement(
+	        'a',
+	        { href: '/auth/github/callback' },
+	        'Login'
+	      )
+	    )
+	  );
+	};
 	
-	  function Navigator(props) {
-	    _classCallCheck(this, Navigator);
+	var NavContainer = function (_React$Component) {
+	  _inherits(NavContainer, _React$Component);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navigator).call(this, props));
+	  function NavContainer(props) {
+	    _classCallCheck(this, NavContainer);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NavContainer).call(this, props));
 	
 	    _this.state = {
 	      userInfo: null
@@ -38574,7 +38604,7 @@
 	    return _this;
 	  }
 	
-	  _createClass(Navigator, [{
+	  _createClass(NavContainer, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
@@ -38590,40 +38620,14 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        _reactBootstrap.Navbar,
-	        null,
-	        _react2.default.createElement(
-	          _reactBootstrap.Nav,
-	          null,
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' },
-	            'Home'
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: 'sample' },
-	            'Sample'
-	          ),
-	          this.state.userInfo ? _react2.default.createElement(
-	            'a',
-	            { href: '/logout' },
-	            'Logout'
-	          ) : _react2.default.createElement(
-	            'a',
-	            { href: '/auth/github/callback' },
-	            'Login'
-	          )
-	        )
-	      );
+	      return _react2.default.createElement(NavView, { userInfo: this.state.userInfo });
 	    }
 	  }]);
 	
-	  return Navigator;
+	  return NavContainer;
 	}(_react2.default.Component);
 	
-	exports.default = Navigator;
+	exports.default = NavContainer;
 
 /***/ },
 /* 258 */

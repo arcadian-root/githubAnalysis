@@ -6,7 +6,20 @@ import { NavItem } from 'react-bootstrap';
 import { Link, browserHistory } from 'react-router';
 import $ from 'jquery';
 
-class Navigator extends React.Component { 
+
+const NavView = (props) => (
+  <Navbar>
+    <Nav>
+      <Link to='/'>Home</Link>
+      <Link to='sample'>Sample</Link>
+
+      {props.userInfo ? <a href='/logout'>Logout</a> : <a href='/auth/github/callback'>Login</a>}
+      
+    </Nav>
+  </Navbar>
+)
+
+class NavContainer extends React.Component { 
   constructor(props) {
     super(props);
     this.state = {
@@ -26,17 +39,9 @@ class Navigator extends React.Component {
 
   render () {
    return (
-      <Navbar>
-        <Nav>
-          <Link to='/'>Home</Link>
-          <Link to='sample'>Sample</Link>
-
-          {this.state.userInfo ? <a href='/logout'>Logout</a> : <a href='/auth/github/callback'>Login</a>}
-          
-        </Nav>
-      </Navbar>
+      <NavView userInfo={this.state.userInfo} />
     )
   }
 }
 
-export default Navigator;
+export default NavContainer;
