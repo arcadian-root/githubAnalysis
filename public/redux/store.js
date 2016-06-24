@@ -1,10 +1,11 @@
 import { createStore, combineReducers } from 'redux';
-import { userReducer } from './reducers';
+import reducers from './reducers';
 
-const reducers = combineReducers({
-  userInfoState: userReducer
+const reducer = combineReducers({
+  userInfoState: reducers.userReducer,
+  mockState: reducers.mockReducer
 });
 
-let store = createStore(reducers);
+let store = createStore(reducer);
 
-default export store;
+export default store;

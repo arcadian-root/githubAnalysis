@@ -3,6 +3,9 @@ var passport = require('passport');
 var requestHandler = require('./requestHandler.js');
 var db = require('./database/database.js');
 
+// temporary assignment
+var userInfo = null;
+
 module.exports = function (app, express) {  
   // authentication
   app.use(passport.initialize());
