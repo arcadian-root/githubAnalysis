@@ -5,33 +5,38 @@ import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
 import { Link, browserHistory } from 'react-router';
 import $ from 'jquery';
+import { connect } from 'react-redux';
+import actions from './../redux/actions'
 
-class Navigator extends React.Component { 
-  constructor(props) {
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.userInfoState // state in 'store' pbject
+  }
+}
+
+class Navigator extends React.Component {
+  constructor (props) {
     super(props);
-    this.state = {
-      userInfo: null
-    }
   }
 
   componentDidMount () {
     $.ajax({
-      method: 'GET',
-      url: '/user/info'
-    }).done( (data) => {
-      console.log(data)
-      this.setState({userInfo: data});
-    });
+        method: 'GET',
+        url: '/user/info'
+      }).done( (data) => {
+        console.log(data)
+        this.props.dispatch(actions.addUserInfo(data));
+      });
   }
 
   render () {
-   return (
+    return (
       <Navbar>
         <Nav>
           <Link to='/'>Home</Link>
           <Link to='sample'>Sample</Link>
 
-          {this.state.userInfo ? <a href='/logout'>Logout</a> : <a href='/auth/github/callback'>Login</a>}
+          {this.props.userInfo ? <a href='/logout'>Logout</a> : <a href='/auth/github/callback'>Login</a>}
           
         </Nav>
       </Navbar>
@@ -39,4 +44,4 @@ class Navigator extends React.Component {
   }
 }
 
-export default Navigator;
+export default connect(mapStateToProps)(Navigator);

@@ -11,7 +11,7 @@ var config = require('../config/config');
 var GITHUB_CLIENT_ID = process.env.CLIENT_ID || config.CLIENT_ID;
 var GITHUB_CLIENT_SECRET = process.env.CLIENT_SECRET || config.CLIENT_SECRET;
 var SECRET = process.env.SESSION_SECRET || config.SESSION_SECRET;
-var userInfo = null;
+
 
 // authentication
 app.use(passport.initialize());
