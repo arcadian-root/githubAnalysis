@@ -10,6 +10,7 @@ module.exports = {
     session.run(
       'MATCH (u:User)-[:CONTRIBUTED_TO]-(n:Repo { name: "' + 
         req.params.name + '" }) RETURN n, u')
+
       .then(results => {
         session.close();
         res.end(JSON.stringify(results.records));
@@ -24,6 +25,7 @@ module.exports = {
     session.run(
       'MATCH (u:User { login: "' + req.params.login + 
         '" })-[:CONTRIBUTED_TO]-(n:Repo) RETURN u, n')
+    
       .then(results => {
         session.close();
         res.end(JSON.stringify(results.records));

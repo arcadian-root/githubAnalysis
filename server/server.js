@@ -1,8 +1,6 @@
 var express = require('express');
 var app = express();
 
-require('./routes.js')(app, express);
-
 var bodyParser = require('body-parser');
 var path = require('path');
 
@@ -45,6 +43,13 @@ passport.deserializeUser(function(obj, done) {
 app.use(express.static(__dirname + "/../public/"));
 app.use(bodyParser.json());
 
+// Allow CORS
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+require('./routes.js')(app, express);
 
 // TODO: accept env variable if procided
 var PORT = process.env.PORT || 3000;
