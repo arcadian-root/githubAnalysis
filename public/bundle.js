@@ -89,23 +89,19 @@
 	
 	var _main2 = _interopRequireDefault(_main);
 	
-	var _LandingPageView = __webpack_require__(/*! ./LandingPageView */ 523);
+	var _LandingPageView = __webpack_require__(/*! ./LandingPageView */ 524);
 	
 	var _LandingPageView2 = _interopRequireDefault(_LandingPageView);
 	
-	var _sample = __webpack_require__(/*! ./sample */ 524);
+	var _sample = __webpack_require__(/*! ./sample */ 525);
 	
 	var _sample2 = _interopRequireDefault(_sample);
 	
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
-	var _userRepoGraph = __webpack_require__(/*! ./userRepoGraph */ 541);
+	var _userRepoGraph = __webpack_require__(/*! ./userRepoGraph */ 543);
 	
 	var _userRepoGraph2 = _interopRequireDefault(_userRepoGraph);
 	
-	var _dashboard = __webpack_require__(/*! ./dashboard */ 542);
-=======
-	var _DashboardView = __webpack_require__(/*! ./DashboardView */ 542);
->>>>>>> Added server redirects when authenticated, added navbar, and css
+	var _DashboardView = __webpack_require__(/*! ./DashboardView */ 544);
 	
 	var _DashboardView2 = _interopRequireDefault(_DashboardView);
 	
@@ -137,13 +133,6 @@
 	// mock data
 	// arr[0]: average fork # (y)
 	// arr[1]: followers # (x)
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
-	
-	
-	// import other components
-	var mockForkData = [[100, 300], [200, 500], [400, 100], [500, 1600], [1800, 1000], [500, 10100], [1500, 10500], [1300, 10200], [1200, 3000], [200, 10600], [500, 100], [50, 4000], [25, 10], [900, 17511], [50, 10000], [30, 11500], [2000, 10000], [2000, 10000], [2000, 10000], [2000, 100], [2000, 100], [2000, 1000], [2, 1], [4, 2], [6, 3], [8, 4], [10, 5], [1300, 18000]];
-	
-=======
 	// const mockForkData = [
 	//   [100, 300],
 	//   [200, 500],
@@ -175,7 +164,6 @@
 	//   [1300, 18000]
 	// ];
 
->>>>>>> Added server redirects when authenticated, added navbar, and css
 	// chart('d3Graph', 'graph1', mockForkData, 25000, 'Followers', 2000, 'Average Fork');
 
 	// chart('d3Graph2', 'graph2', [[1, 2], [100, 200], [1000, 2000], [10000, 20000]], 30000, undefined, 15000);
@@ -197,6 +185,9 @@
 	//     })
 	//   }
 	// });
+
+
+	// import other components
 
 /***/ },
 /* 2 */
@@ -38640,7 +38631,7 @@
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _SearchBar = __webpack_require__(/*! ./SearchBar */ 543);
+	var _SearchBar = __webpack_require__(/*! ./SearchBar */ 523);
 	
 	var _SearchBar2 = _interopRequireDefault(_SearchBar);
 	
@@ -58706,6 +58697,105 @@
 
 /***/ },
 /* 523 */
+/*!*************************************!*\
+  !*** ./public/client/SearchBar.jsx ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 39);
+	
+	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 259);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SearchBar = function (_React$Component) {
+	  _inherits(SearchBar, _React$Component);
+	
+	  function SearchBar(props) {
+	    _classCallCheck(this, SearchBar);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBar).call(this, props));
+	
+	    _this.state = {
+	      dropDownVal: "Repos"
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(SearchBar, [{
+	    key: 'updateDropDown',
+	    value: function updateDropDown(event) {
+	      this.setState({ dropDownVal: event });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _reactBootstrap.Form,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.FormGroup,
+	            { bsSize: 'small' },
+	            _react2.default.createElement(
+	              _reactBootstrap.InputGroup,
+	              { bsSize: 'small' },
+	              _react2.default.createElement(_reactBootstrap.FormControl, { className: 'searchbar', type: 'text', placeholder: 'Search' }),
+	              _react2.default.createElement(
+	                _reactBootstrap.DropdownButton,
+	                { componentClass: _reactBootstrap.InputGroup.Button, id: 'input-dropdown-addon',
+	                  title: this.state.dropDownVal, className: 'searchbar' },
+	                _react2.default.createElement(
+	                  _reactBootstrap.MenuItem,
+	                  { onSelect: this.updateDropDown.bind(this), eventKey: 'Repos' },
+	                  'Repositories'
+	                ),
+	                _react2.default.createElement(
+	                  _reactBootstrap.MenuItem,
+	                  { onSelect: this.updateDropDown.bind(this), eventKey: 'Users' },
+	                  'Users'
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return SearchBar;
+	}(_react2.default.Component);
+	
+	exports.default = SearchBar;
+	// <Button type="submit">Submit</Button>
+
+	// <DropdownButton title={this.state.dropDownVal} id="bg-nested-dropdown" pullRight>
+	//               <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Repos">Repositories</MenuItem>
+	//               <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Users">Users</MenuItem>
+	//             </DropdownButton>
+
+/***/ },
+/* 524 */
 /*!*******************************************!*\
   !*** ./public/client/LandingPageView.jsx ***!
   \*******************************************/
@@ -58764,7 +58854,7 @@
 	exports.default = LandingPageView;
 
 /***/ },
-/* 524 */
+/* 525 */
 /*!**********************************!*\
   !*** ./public/client/sample.jsx ***!
   \**********************************/
@@ -58782,7 +58872,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactFauxDom = __webpack_require__(/*! react-faux-dom */ 525);
+	var _reactFauxDom = __webpack_require__(/*! react-faux-dom */ 526);
 	
 	var _reactFauxDom2 = _interopRequireDefault(_reactFauxDom);
 	
@@ -58790,7 +58880,7 @@
 	
 	var _d2 = _interopRequireDefault(_d);
 	
-	var _chart = __webpack_require__(/*! ./chart */ 541);
+	var _chart = __webpack_require__(/*! ./chart */ 542);
 	
 	var _chart2 = _interopRequireDefault(_chart);
 	
@@ -58833,16 +58923,16 @@
 	exports.default = Sample;
 
 /***/ },
-/* 525 */
+/* 526 */
 /*!**********************************************!*\
   !*** ./~/react-faux-dom/lib/ReactFauxDOM.js ***!
   \**********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var Element = __webpack_require__(/*! ./Element */ 526)
-	var Window = __webpack_require__(/*! ./Window */ 538)
-	var core = __webpack_require__(/*! ./mixins/core */ 539)
-	var anim = __webpack_require__(/*! ./mixins/anim */ 540)
+	var Element = __webpack_require__(/*! ./Element */ 527)
+	var Window = __webpack_require__(/*! ./Window */ 539)
+	var core = __webpack_require__(/*! ./mixins/core */ 540)
+	var anim = __webpack_require__(/*! ./mixins/anim */ 541)
 	
 	var ReactFauxDOM = {
 	  Element: Element,
@@ -58870,21 +58960,21 @@
 
 
 /***/ },
-/* 526 */
+/* 527 */
 /*!*****************************************!*\
   !*** ./~/react-faux-dom/lib/Element.js ***!
   \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 2)
-	var styleAttr = __webpack_require__(/*! style-attr */ 527)
-	var querySelectorAll = __webpack_require__(/*! query-selector */ 528)
-	var camelCase = __webpack_require__(/*! ./utils/camelCase */ 532)
-	var isString = __webpack_require__(/*! ./utils/isString */ 533)
-	var isUndefined = __webpack_require__(/*! ./utils/isUndefined */ 534)
-	var assign = __webpack_require__(/*! ./utils/assign */ 535)
-	var mapValues = __webpack_require__(/*! ./utils/mapValues */ 536)
-	var styleCamelCase = __webpack_require__(/*! ./utils/styleCamelCase */ 537)
+	var styleAttr = __webpack_require__(/*! style-attr */ 528)
+	var querySelectorAll = __webpack_require__(/*! query-selector */ 529)
+	var camelCase = __webpack_require__(/*! ./utils/camelCase */ 533)
+	var isString = __webpack_require__(/*! ./utils/isString */ 534)
+	var isUndefined = __webpack_require__(/*! ./utils/isUndefined */ 535)
+	var assign = __webpack_require__(/*! ./utils/assign */ 536)
+	var mapValues = __webpack_require__(/*! ./utils/mapValues */ 537)
+	var styleCamelCase = __webpack_require__(/*! ./utils/styleCamelCase */ 538)
 	
 	function Element (nodeName, parentNode) {
 	  this.nodeName = nodeName
@@ -59224,7 +59314,7 @@
 
 
 /***/ },
-/* 527 */
+/* 528 */
 /*!***********************************!*\
   !*** ./~/style-attr/lib/index.js ***!
   \***********************************/
@@ -59332,16 +59422,16 @@
 	module.exports.normalize = normalize;
 
 /***/ },
-/* 528 */
+/* 529 */
 /*!***********************************!*\
   !*** ./~/query-selector/index.js ***!
   \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! ./lib/query-selector */ 529);
+	module.exports = __webpack_require__(/*! ./lib/query-selector */ 530);
 
 /***/ },
-/* 529 */
+/* 530 */
 /*!************************************************!*\
   !*** ./~/query-selector/lib/query-selector.js ***!
   \************************************************/
@@ -59353,8 +59443,8 @@
 	 * @author yiminghe@gmail.com
 	 */
 	
-	var util = __webpack_require__(/*! ./query-selector/util */ 530);
-	var parser = __webpack_require__(/*! ./query-selector/parser */ 531);
+	var util = __webpack_require__(/*! ./query-selector/util */ 531);
+	var parser = __webpack_require__(/*! ./query-selector/parser */ 532);
 	
 	var EXPANDO_SELECTOR_KEY = '_ks_data_selector_id_',
 	  caches = {},
@@ -60047,7 +60137,7 @@
 	 */
 
 /***/ },
-/* 530 */
+/* 531 */
 /*!*****************************************************!*\
   !*** ./~/query-selector/lib/query-selector/util.js ***!
   \*****************************************************/
@@ -60401,7 +60491,7 @@
 	};
 
 /***/ },
-/* 531 */
+/* 532 */
 /*!*******************************************************!*\
   !*** ./~/query-selector/lib/query-selector/parser.js ***!
   \*******************************************************/
@@ -61613,7 +61703,7 @@
 	}
 
 /***/ },
-/* 532 */
+/* 533 */
 /*!*************************************************!*\
   !*** ./~/react-faux-dom/lib/utils/camelCase.js ***!
   \*************************************************/
@@ -61639,7 +61729,7 @@
 
 
 /***/ },
-/* 533 */
+/* 534 */
 /*!************************************************!*\
   !*** ./~/react-faux-dom/lib/utils/isString.js ***!
   \************************************************/
@@ -61653,7 +61743,7 @@
 
 
 /***/ },
-/* 534 */
+/* 535 */
 /*!***************************************************!*\
   !*** ./~/react-faux-dom/lib/utils/isUndefined.js ***!
   \***************************************************/
@@ -61667,7 +61757,7 @@
 
 
 /***/ },
-/* 535 */
+/* 536 */
 /*!**********************************************!*\
   !*** ./~/react-faux-dom/lib/utils/assign.js ***!
   \**********************************************/
@@ -61692,7 +61782,7 @@
 
 
 /***/ },
-/* 536 */
+/* 537 */
 /*!*************************************************!*\
   !*** ./~/react-faux-dom/lib/utils/mapValues.js ***!
   \*************************************************/
@@ -61714,13 +61804,13 @@
 
 
 /***/ },
-/* 537 */
+/* 538 */
 /*!******************************************************!*\
   !*** ./~/react-faux-dom/lib/utils/styleCamelCase.js ***!
   \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var camelCase = __webpack_require__(/*! ./camelCase */ 532)
+	var camelCase = __webpack_require__(/*! ./camelCase */ 533)
 	
 	function styleCamelCase (name) {
 	  var camel = camelCase(name)
@@ -61743,7 +61833,7 @@
 
 
 /***/ },
-/* 538 */
+/* 539 */
 /*!****************************************!*\
   !*** ./~/react-faux-dom/lib/Window.js ***!
   \****************************************/
@@ -61761,14 +61851,14 @@
 
 
 /***/ },
-/* 539 */
+/* 540 */
 /*!*********************************************!*\
   !*** ./~/react-faux-dom/lib/mixins/core.js ***!
   \*********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var Element = __webpack_require__(/*! ../Element */ 526)
-	var mapValues = __webpack_require__(/*! ../utils/mapValues */ 536)
+	var Element = __webpack_require__(/*! ../Element */ 527)
+	var mapValues = __webpack_require__(/*! ../utils/mapValues */ 537)
 	
 	var mixin = {
 	  componentWillMount: function () {
@@ -61792,7 +61882,7 @@
 
 
 /***/ },
-/* 540 */
+/* 541 */
 /*!*********************************************!*\
   !*** ./~/react-faux-dom/lib/mixins/anim.js ***!
   \*********************************************/
@@ -61827,7 +61917,7 @@
 
 
 /***/ },
-/* 541 */
+/* 542 */
 /*!*********************************!*\
   !*** ./public/client/chart.jsx ***!
   \*********************************/
@@ -61845,7 +61935,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactFauxDom = __webpack_require__(/*! react-faux-dom */ 525);
+	var _reactFauxDom = __webpack_require__(/*! react-faux-dom */ 526);
 	
 	var _reactFauxDom2 = _interopRequireDefault(_reactFauxDom);
 	
@@ -61978,15 +62068,9 @@
 	exports.default = Chart;
 
 /***/ },
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
-/* 541 */
+/* 543 */
 /*!*****************************************!*\
   !*** ./public/client/userRepoGraph.jsx ***!
-=======
-/* 542 */
-/*!*****************************************!*\
-  !*** ./public/client/DashboardView.jsx ***!
->>>>>>> Added server redirects when authenticated, added navbar, and css
   \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -62004,19 +62088,6 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 39);
 	
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
-=======
-	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 259);
-	
-	var _SearchBar = __webpack_require__(/*! ./SearchBar */ 543);
-	
-	var _SearchBar2 = _interopRequireDefault(_SearchBar);
-	
-	var _Filters = __webpack_require__(/*! ./Filters */ 544);
-	
-	var _Filters2 = _interopRequireDefault(_Filters);
-	
->>>>>>> Added server redirects when authenticated, added navbar, and css
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -62025,7 +62096,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
 	var UserRepoGraph = function (_React$Component) {
 	  _inherits(UserRepoGraph, _React$Component);
 	
@@ -62036,60 +62106,26 @@
 	  }
 	
 	  _createClass(UserRepoGraph, [{
-=======
-	var DashboardView = function (_React$Component) {
-	  _inherits(DashboardView, _React$Component);
-	
-	  function DashboardView(props) {
-	    _classCallCheck(this, DashboardView);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(DashboardView).call(this, props));
-	  }
-	
-	  _createClass(DashboardView, [{
->>>>>>> Added server redirects when authenticated, added navbar, and css
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
 	        ' Graph is coming soon '
-=======
-	        _react2.default.createElement(
-	          _reactBootstrap.Grid,
-	          { fluid: true },
-	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { xs: 10, xsOffset: 1 },
-	            _react2.default.createElement(_Filters2.default, null)
-	          )
-	        )
->>>>>>> Added server redirects when authenticated, added navbar, and css
 	      );
 	    }
 	  }]);
 	
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
 	  return UserRepoGraph;
 	}(_react2.default.Component);
 	
 	exports.default = UserRepoGraph;
 
 /***/ },
-/* 542 */
-=======
-	  return DashboardView;
-	}(_react2.default.Component);
-	
-	exports.default = DashboardView;
-
-/***/ },
-/* 543 */
->>>>>>> Added server redirects when authenticated, added navbar, and css
-/*!*************************************!*\
-  !*** ./public/client/SearchBar.jsx ***!
-  \*************************************/
+/* 544 */
+/*!*****************************************!*\
+  !*** ./public/client/DashboardView.jsx ***!
+  \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62106,17 +62142,23 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 39);
 	
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
-	var _userRepoGraph = __webpack_require__(/*! ./userRepoGraph */ 541);
+	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 259);
+	
+	var _SearchBar = __webpack_require__(/*! ./SearchBar */ 523);
+	
+	var _SearchBar2 = _interopRequireDefault(_SearchBar);
+	
+	var _Filters = __webpack_require__(/*! ./Filters */ 545);
+	
+	var _Filters2 = _interopRequireDefault(_Filters);
+	
+	var _userRepoGraph = __webpack_require__(/*! ./userRepoGraph */ 543);
 	
 	var _userRepoGraph2 = _interopRequireDefault(_userRepoGraph);
 	
-	var _organization = __webpack_require__(/*! ./organization */ 543);
+	var _organization = __webpack_require__(/*! ./organization */ 546);
 	
 	var _organization2 = _interopRequireDefault(_organization);
-=======
-	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 259);
->>>>>>> Added server redirects when authenticated, added navbar, and css
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -62126,81 +62168,43 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var SearchBar = function (_React$Component) {
-	  _inherits(SearchBar, _React$Component);
+	var DashboardView = function (_React$Component) {
+	  _inherits(DashboardView, _React$Component);
 	
-	  function SearchBar(props) {
-	    _classCallCheck(this, SearchBar);
+	  function DashboardView(props) {
+	    _classCallCheck(this, DashboardView);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBar).call(this, props));
-	
-	    _this.state = {
-	      dropDownVal: "Repos"
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(DashboardView).call(this, props));
 	  }
 	
-	  _createClass(SearchBar, [{
-	    key: 'updateDropDown',
-	    value: function updateDropDown(event) {
-	      this.setState({ dropDownVal: event });
-	    }
-	  }, {
+	  _createClass(DashboardView, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-<<<<<<< 81697acb69a4e905e8e3bce5338f3818c368a97f
-	        'Dashboard is under construction ...',
+	        _react2.default.createElement(
+	          _reactBootstrap.Grid,
+	          { fluid: true },
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { xs: 10, xsOffset: 1 },
+	            _react2.default.createElement(_Filters2.default, null)
+	          )
+	        ),
 	        _react2.default.createElement(_userRepoGraph2.default, null),
 	        _react2.default.createElement(_organization2.default, null)
-=======
-	        _react2.default.createElement(
-	          _reactBootstrap.Form,
-	          null,
-	          _react2.default.createElement(
-	            _reactBootstrap.FormGroup,
-	            { bsSize: 'small' },
-	            _react2.default.createElement(
-	              _reactBootstrap.InputGroup,
-	              { bsSize: 'small' },
-	              _react2.default.createElement(_reactBootstrap.FormControl, { className: 'searchbar', type: 'text', placeholder: 'Search' }),
-	              _react2.default.createElement(
-	                _reactBootstrap.DropdownButton,
-	                { componentClass: _reactBootstrap.InputGroup.Button, id: 'input-dropdown-addon',
-	                  title: this.state.dropDownVal, className: 'searchbar' },
-	                _react2.default.createElement(
-	                  _reactBootstrap.MenuItem,
-	                  { onSelect: this.updateDropDown.bind(this), eventKey: 'Repos' },
-	                  'Repositories'
-	                ),
-	                _react2.default.createElement(
-	                  _reactBootstrap.MenuItem,
-	                  { onSelect: this.updateDropDown.bind(this), eventKey: 'Users' },
-	                  'Users'
-	                )
-	              )
-	            )
-	          )
-	        )
 	      );
 	    }
 	  }]);
 	
-	  return SearchBar;
+	  return DashboardView;
 	}(_react2.default.Component);
 	
-	exports.default = SearchBar;
-	// <Button type="submit">Submit</Button>
-
-	// <DropdownButton title={this.state.dropDownVal} id="bg-nested-dropdown" pullRight>
-	//               <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Repos">Repositories</MenuItem>
-	//               <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Users">Users</MenuItem>
-	//             </DropdownButton>
+	exports.default = DashboardView;
 
 /***/ },
-/* 544 */
+/* 545 */
 /*!***********************************!*\
   !*** ./public/client/Filters.jsx ***!
   \***********************************/
@@ -62259,7 +62263,6 @@
 	          { inline: true },
 	          'Sort?'
 	        )
->>>>>>> Added server redirects when authenticated, added navbar, and css
 	      );
 	    }
 	  }]);
@@ -62272,7 +62275,7 @@
 	exports.default = Filters;
 
 /***/ },
-/* 543 */
+/* 546 */
 /*!****************************************!*\
   !*** ./public/client/organization.jsx ***!
   \****************************************/
