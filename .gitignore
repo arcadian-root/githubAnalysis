@@ -40,4 +40,8 @@ jspm_packages
 config/config.js
 
 # webpack bundle
-bundle.js
+public/bundle.js
+public/bundle.js.map
+
+# git DS STORE
+.DS_STORE

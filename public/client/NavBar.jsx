@@ -40,7 +40,7 @@ class Navigator extends React.Component {
      
         <Grid>
     <Row className="show-grid">
-      <Col xs={2} md={2}><img src="./static/assets/logo.png" className="logo" /></Col>
+      <Col xs={2} md={2}><a href='/'><img src="./static/assets/logo.png" className="logo" /></a></Col>
       <Col xs={8} md={8}>
         {this.props.userInfo ? <SearchBar /> : <a></a>}
       </Col>
