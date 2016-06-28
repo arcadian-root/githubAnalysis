@@ -62191,9 +62191,7 @@
 	            { xs: 10, xsOffset: 1 },
 	            _react2.default.createElement(_Filters2.default, null)
 	          )
-	        ),
-	        _react2.default.createElement(_userRepoGraph2.default, null),
-	        _react2.default.createElement(_organization2.default, null)
+	        )
 	      );
 	    }
 	  }]);
@@ -62202,6 +62200,9 @@
 	}(_react2.default.Component);
 	
 	exports.default = DashboardView;
+	
+	// <UserRepoGraph />
+	// <Organization />
 
 /***/ },
 /* 545 */
@@ -62247,7 +62248,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Filters).call(this, props));
 	
 	    _this.state = {
-	      dropDownVal: "Repos"
+	      dropDownNodeType: "Repo"
 	    };
 	    return _this;
 	  }
@@ -62262,6 +62263,16 @@
 	          _reactBootstrap.Checkbox,
 	          { inline: true },
 	          'Sort?'
+	        ),
+	        'Sort By:',
+	        _react2.default.createElement(
+	          _reactBootstrap.SplitButton,
+	          { inline: true },
+	          _react2.default.createElement(
+	            _reactBootstrap.MenuItem,
+	            { eventKey: '1' },
+	            'Action'
+	          )
 	        )
 	      );
 	    }

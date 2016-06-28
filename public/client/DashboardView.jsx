@@ -17,14 +17,16 @@ class DashboardView extends React.Component {
   render () {
     return (
     	<div>
-      <Grid fluid={true}>
-        <Col xs={10} xsOffset={1}><Filters /></Col>
+        <Grid fluid={true}>
+          <Col xs={10} xsOffset={1}><Filters /></Col>
         </Grid>
-        <UserRepoGraph />
-        <Organization />
+
       </div>
     )
   }
 }
 
 export default DashboardView;
+
+// <UserRepoGraph />
+// <Organization />
