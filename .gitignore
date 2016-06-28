@@ -38,3 +38,6 @@ jspm_packages
 
 # Configuration files
 config/config.js
+
+# webpack bundle
+bundle.js
