@@ -14,6 +14,7 @@ var SECRET = process.env.SESSION_SECRET || config.SESSION_SECRET;
 
 
 // authentication
+app.use(session({secret: SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -40,7 +41,8 @@ passport.deserializeUser(function(obj, done) {
 
 
 // middleware
-app.use(express.static(__dirname + "/../public/"));
+app.use('/static', express.static(__dirname + "/../public/"));
+
 app.use(bodyParser.json());
 
 // Allow CORS

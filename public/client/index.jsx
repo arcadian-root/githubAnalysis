@@ -10,10 +10,10 @@ import store from './../redux/store';
 
 // import other components
 import Main from './main';
-import Mock from './mock';
+import LandingPageView from './LandingPageView';
 import Sample from './sample';
 import userRepoGraph from './userRepoGraph'
-import Dashboard from './dashboard';
+import DashboardView from './DashboardView';
 
 // <Route path='/' component={Login}/>
 // <Route path='/login' component={Login}/>
@@ -26,9 +26,9 @@ render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route component={Main}>
-        <Route path='/' component={Mock} /> 
+        <Route path='/' component={LandingPageView} /> 
         <Route path='/sample' component={Sample} />
-        <Route path='/dashboard' component={Dashboard} />
+        <Route path='/dashboard' component={DashboardView} />
       </Route>
     </Router>
   </Provider> 
@@ -38,36 +38,36 @@ render((
 // mock data
 // arr[0]: average fork # (y)
 // arr[1]: followers # (x)
-const mockForkData = [
-  [100, 300],
-  [200, 500],
-  [400, 100],
-  [500, 1600],
-  [1800, 1000],
-  [500, 10100],
-  [1500, 10500],
-  [1300, 10200],
-  [1200, 3000],
-  [200, 10600],
-  [500, 100],
-  [50, 4000],
-  [25, 10],
-  [900, 17511],
-  [50, 10000],
-  [30, 11500],
-  [2000, 10000],
-  [2000, 10000],
-  [2000, 10000],
-  [2000, 100],
-  [2000, 100],
-  [2000, 1000],
-  [2, 1],
-  [4, 2],
-  [6, 3],
-  [8, 4],
-  [10, 5],
-  [1300, 18000]
-];
+// const mockForkData = [
+//   [100, 300],
+//   [200, 500],
+//   [400, 100],
+//   [500, 1600],
+//   [1800, 1000],
+//   [500, 10100],
+//   [1500, 10500],
+//   [1300, 10200],
+//   [1200, 3000],
+//   [200, 10600],
+//   [500, 100],
+//   [50, 4000],
+//   [25, 10],
+//   [900, 17511],
+//   [50, 10000],
+//   [30, 11500],
+//   [2000, 10000],
+//   [2000, 10000],
+//   [2000, 10000],
+//   [2000, 100],
+//   [2000, 100],
+//   [2000, 1000],
+//   [2, 1],
+//   [4, 2],
+//   [6, 3],
+//   [8, 4],
+//   [10, 5],
+//   [1300, 18000]
+// ];
 
 // chart('d3Graph', 'graph1', mockForkData, 25000, 'Followers', 2000, 'Average Fork');
 

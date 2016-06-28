@@ -1,10 +1,7 @@
 var passport = require('passport');
-
 var requestHandler = require('./requestHandler.js');
 var db = require('./database/database.js');
-
-// temporary assignment
-var userInfo = null;
+var path = require('path');
 
 module.exports = function (app, express) {  
   // authentication
@@ -23,15 +20,11 @@ module.exports = function (app, express) {
 
     // Successful authentication, redirect dashboard.
     function (req, res) {
-      // Get user data
-      userInfo = req.user;
       res.redirect('/dashboard');
     }
   );
 
   app.get('/logout', function (req, res) {
-   console.log('in /user/logout');
-   userInfo = null;
    req.logout();
    res.redirect('/');
   });
@@ -39,9 +32,19 @@ module.exports = function (app, express) {
   // TODO: setup endpoints
 
   app.get('/user/info', function (req, res) {
-    console.log(userInfo)
-    res.send(userInfo);
+    res.send(req.user);
   })
-  app.get('/sample', requestHandler.wildcard);
+
   app.get('/dashboard', requestHandler.wildcard);
+
+  app.get('/', function(req, res) {
+    if(req.isAuthenticated()) {
+      res.redirect('/dashboard');
+    } else {
+      res.sendFile(path.resolve(__dirname, './../public', 'index.html'));
+    }
+
+  })
+  
 };
+
