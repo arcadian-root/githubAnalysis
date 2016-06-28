@@ -1,9 +1,9 @@
 import React from 'react';
-import Nav from './nav'
+import NavBar from './NavBar';
 
 let main = (props) => (
   <div>
-    <Nav />
+    <NavBar />
     <div>
       {props.children}
     </div>
