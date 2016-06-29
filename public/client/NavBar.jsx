@@ -9,8 +9,8 @@ import { Col } from 'react-bootstrap';
 import { Link, browserHistory } from 'react-router';
 import $ from 'jquery';
 import { connect } from 'react-redux';
-import actions from './../redux/actions'
-import SearchBar from './SearchBar'
+import actions from './../redux/actions';
+import SearchBar from './SearchBar';
 
 const mapStateToProps = (state) => {
   return {
@@ -44,6 +44,7 @@ class Navigator extends React.Component {
       <Col xs={8} md={8}>
         {this.props.userInfo ? <SearchBar /> : <a></a>}
       </Col>
+
     
       <Col xs={2} md={2}>
         {this.props.userInfo ? <a className="navbar-btn pull-right" href='/logout'>Logout</a> : <a></a>}

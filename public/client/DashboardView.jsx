@@ -5,7 +5,7 @@ import { Row } from 'react-bootstrap'
 import { Col } from 'react-bootstrap'
 import SearchBar from './SearchBar'
 import Filters from './Filters'
-import UserRepoGraph from './userRepoGraph';
+import GraphContainer from './GraphContainer';
 import Organization from './organization';
 
 
@@ -19,14 +19,11 @@ class DashboardView extends React.Component {
     	<div>
         <Grid fluid={true}>
           <Col xs={10} xsOffset={1}><Filters /></Col>
+          <GraphContainer />
         </Grid>
-
       </div>
     )
   }
 }
 
 export default DashboardView;
-
-// <UserRepoGraph />
-// <Organization />
