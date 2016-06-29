@@ -45,3 +45,6 @@ public/bundle.js.map
 
 # git DS STORE
 .DS_STORE
+
+# compiled files by babel
+compiled
