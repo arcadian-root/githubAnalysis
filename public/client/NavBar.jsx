@@ -35,7 +35,6 @@ class Navigator extends React.Component {
 
   render () {
     return (
-
     <nav className="navbar navbar-default light-themed-background">
      
         <Grid>
@@ -51,10 +50,12 @@ class Navigator extends React.Component {
         {this.props.userInfo ? <img src={this.props.userInfo._json.avatar_url} className="profPic pull-right" /> : <a></a> }
       </Col>
     
-    </Row>
+          <Col xs={2} md={2}>
+            {this.props.userInfo ? <a className="navbar-btn pull-right" href='/logout'>Logout</a> : <a></a>}
+            {this.props.userInfo ? <img src={this.props.userInfo._json.avatar_url} className="profPic pull-right" /> : <a></a> }
+          </Col>
+      </Row>
     </Grid>
-
-
   </nav>
 
     )
