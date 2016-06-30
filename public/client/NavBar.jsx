@@ -35,28 +35,21 @@ class Navigator extends React.Component {
 
   render () {
     return (
-
     <nav className="navbar navbar-default light-themed-background">
-     
-        <Grid>
-    <Row className="show-grid">
-      <Col xs={2} md={2}><a href='/'><img src="./static/assets/logo.png" className="logo" /></a></Col>
-      <Col xs={8} md={8}>
-        {this.props.userInfo ? <SearchBar /> : <a></a>}
-      </Col>
+      <Grid>
+      <Row className="show-grid">
+        <Col xs={2} md={2}><a href='/'><img src="./static/assets/logo.png" className="logo" /></a></Col>
+        <Col xs={8} md={8}>
+          {this.props.userInfo ? <SearchBar /> : <a></a>}
+        </Col>
 
-    
       <Col xs={2} md={2}>
         {this.props.userInfo ? <a className="navbar-btn pull-right" href='/logout'>Logout</a> : <a></a>}
         {this.props.userInfo ? <img src={this.props.userInfo._json.avatar_url} className="profPic pull-right" /> : <a></a> }
       </Col>
-    
-    </Row>
+      </Row>
     </Grid>
-
-
   </nav>
-
     )
   }
 }
