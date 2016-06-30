@@ -11,7 +11,6 @@ import store from './../redux/store';
 // import other components
 import Main from './main';
 import LandingPageView from './LandingPageView';
-import Sample from './sample';
 import userRepoGraph from './userRepoGraph'
 import DashboardView from './DashboardView';
 
@@ -27,7 +26,6 @@ render((
     <Router history={browserHistory}>
       <Route component={Main}>
         <Route path='/' component={LandingPageView} /> 
-        <Route path='/sample' component={Sample} />
         <Route path='/dashboard' component={DashboardView} />
       </Route>
     </Router>

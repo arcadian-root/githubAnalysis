@@ -32,8 +32,8 @@ class SearchBar extends React.Component {
               <FormControl  className="searchbar" type="text" placeholder="Search"/>
                 <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon"
                   title={this.state.dropDownVal} className="searchbar" >
-                  <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Repos">Repositories</MenuItem>
-                  <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Users">Users</MenuItem>
+                  <MenuItem onSelect={this.updateDropDown.bind(this)} id="reposMenu" eventKey="Repos">Repositories</MenuItem>
+                  <MenuItem onSelect={this.updateDropDown.bind(this)} id="usersMenu" eventKey="Users">Users</MenuItem>
                 </DropdownButton>
             </InputGroup>
           </FormGroup>
