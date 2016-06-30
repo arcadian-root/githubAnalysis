@@ -13,7 +13,6 @@ import SearchBar from './../../public/client/SearchBar';
 
 
 describe('Main', () => {
-
   const wrapper = shallow(<Main />);
 
   it('should be a stateless class component', () => {

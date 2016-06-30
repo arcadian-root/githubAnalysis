@@ -1,5 +1,5 @@
 import React from 'react';
-import Graph from './Graph.jsx';
+import Graph from './Graph';
 
 export default class GraphContainer extends React.Component {
   constructor () {
