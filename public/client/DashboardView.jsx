@@ -20,6 +20,7 @@ class DashboardView extends React.Component {
         <Grid fluid={true}>
           <Col xs={10} xsOffset={1}><Filters /></Col>
           <GraphContainer />
+
         </Grid>
       </div>
     )
