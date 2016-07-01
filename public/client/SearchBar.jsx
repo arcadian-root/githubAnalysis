@@ -11,6 +11,7 @@ import { ControlLabel } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import $ from 'jquery';
+import App from 'GitHub-Network-Graph';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -35,19 +36,9 @@ class SearchBar extends React.Component {
 
         success: (data) => { 
           data = JSON.parse(data);
-          console.log(data);
-          // TODO: WRITE CODE TO RENDER STUFF IN THREE JS BASED ON SEARCH QUERY
-          // Parsing the results to get the information we want
-          // let props = data[0]._fields[0].properties;
-
-          // The starting user
-          // App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
-
-          // Add canvas to our page
-          // document.body.appendChild(App.renderer.domElement);
-   
-          // Start the render loop
-          // App.render();
+          App.clear();
+          let props = data[0]._fields[0].properties;
+          App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
         },
 
         error: (err) => {
