@@ -36,6 +36,7 @@ class SearchBar extends React.Component {
 
         success: (data) => { 
           data = JSON.parse(data);
+          console.log(data);
           App.clear();
           let props = data[0]._fields[0].properties;
           App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
