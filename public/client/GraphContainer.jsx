@@ -22,8 +22,10 @@ export default class GraphContainer extends React.Component {
     return (
       <div className='panel panel-default'>
         <pre id='error' style={{ visibility: 'hidden', color: '#000' }}></pre>
-        <span id='label' style={ style }></span>
-        <div id='graph' className='panel-body'></div>
+        
+        <div id='graph' className='panel-body'>
+          <span id='label' style={ style }></span>
+        </div>
         <Graph />
       </div>
     );
