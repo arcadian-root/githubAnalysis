@@ -26,7 +26,7 @@ module.exports = {
 				console.log('User does not exist!');
 				// An argument of false shows that the searched User doesn't exist on gitHub so nothing was added to DB
 				callback(false);
-				session.close();
+				// session.close();
 				// driver.close();
 			}
 		});
@@ -90,11 +90,6 @@ function getRepoInfo(user, options, callback) {
 				", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches)
 			.then(function(result){
 				console.log('Added ' + user + ' to the DB with total forks, stars, and watches');
-				// An argument of true shows that the searched User exists in github and was added to the DB
-				// callback(true);
-				// session.close();
-				// driver.close();
-
 				// Start adding User's repos to the DB
 				addUserRepos(user, body, callback);
 			})
@@ -108,24 +103,29 @@ function getRepoInfo(user, options, callback) {
 
 function addUserRepos (user, body, callback) {
 	var insertCount = -1;
+	var relationCount = -1;
 	for(var i = 0; i < body.length; i++) {
-		// console.log(body[i].name)
 		session
 			.run("MERGE (a:Repo {name:'" + body[i].name + "', id:" + body[i].id +
 		  	", contributors_url:'" + body[i].contributors_url + "', updated_at:'" + 
 		  	body[i].updated_at + "'})")
 			.then(function() {
-				++insertCount;
-				console.log('user: ', user)
-				console.log('reponame: ', body[insertCount].name)
-				session
-					.run("MATCH (n:Repo {name:'" + body[insertCount].name + "'}), (u:User {login:'" + user + 
-					"'}) CREATE (u)-[:CONTRIBUTED_TO]->(n)")
-					.then(function() {
-						console.log('suc')
-						if(body.length === insertCount);
-						callback(true);
-					})
+				insertCount++;
+				if(insertCount === body.length - 1) {
+					for (var j = 0; j < body.length; j++) {
+						session
+							.run("MATCH (n:Repo {name:'" + body[j].name + "'}), (u:User {login:'" + user + 
+								"'}) CREATE (u)-[:CONTRIBUTED_TO]->(n)")
+							.then(function() {
+								++relationCount;
+								if(relationCount === body.length - 1) {
+									// An argument of true shows that the searched User exists in github and was added to the DB
+									callback(true);
+									session.close();
+								}
+						})
+					}
+				}
 			})
 	}
 }

@@ -67,6 +67,7 @@ module.exports = {
           // Else respond with the User in the DB
           } else {
             session.close();
+            console.log('made it')
             res.end(JSON.stringify(results.records));
           }
         })
