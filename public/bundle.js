@@ -58721,6 +58721,10 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	var _GitHubNetworkGraph = __webpack_require__(/*! GitHub-Network-Graph */ 530);
+	
+	var _GitHubNetworkGraph2 = _interopRequireDefault(_GitHubNetworkGraph);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -58760,19 +58764,9 @@
 	
 	          success: function success(data) {
 	            data = JSON.parse(data);
-	            console.log(data);
-	            // TODO: WRITE CODE TO RENDER STUFF IN THREE JS BASED ON SEARCH QUERY
-	            // Parsing the results to get the information we want
-	            // let props = data[0]._fields[0].properties;
-	
-	            // The starting user
-	            // App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
-	
-	            // Add canvas to our page
-	            // document.body.appendChild(App.renderer.domElement);
-	
-	            // Start the render loop
-	            // App.render();
+	            _GitHubNetworkGraph2.default.clear();
+	            var props = data[0]._fields[0].properties;
+	            _GitHubNetworkGraph2.default.createNodeFromData({ position: [0, 0, 0], data: data[0] });
 	          },
 	
 	          error: function error(err) {
@@ -59288,6 +59282,11 @@
 	
 	THREE.TrackballControls = TrackballControls;
 	
+	App.clear = () => {
+	  App.Users.remove();
+	  App.Repos.remove();
+	}
+	
 	App.init = () => {
 	  // Used for keeping track of the cursor's movement on the canvas
 	  // This is for raycasting so hovering over and clicking works
@@ -59304,13 +59303,6 @@
 	  App.scene.add(App.camera);
 	
 	
-	  // Creating camera controls
-	  App.controls = new THREE.TrackballControls(App.camera);
-	
-	  // Camera control configuration
-	  App.controls.minDistance = 0.4;
-	  App.controls.maxDistance = 10;
-	
 	  // Two separate collections for users and repos
 	  // This is for easier finding and just in case a user and a repo share the same ID
 	  App.Users = new NodeCollection();
@@ -59324,7 +59316,7 @@
 	
 	    success: (data) => { 
 	      data = JSON.parse(data);
-	
+	      console.log(data);
 	      // Parsing the results to get the information we want
 	      let props = data[0]._fields[0].properties;
 	
@@ -59336,6 +59328,14 @@
 	      App.renderer = new THREE.WebGLRenderer();
 	      App.renderer.setSize(Math.round(width - (width / 4)), 
 	        Math.round(height - (height / 4)));
+	
+	
+	      // Creating camera controls
+	      App.controls = new THREE.TrackballControls(App.camera, App.GraphElement);
+	
+	      // Camera control configuration
+	      App.controls.minDistance = 0.4;
+	      App.controls.maxDistance = 10;
 	
 	      // Add canvas to our page
 	      document.getElementById('graph').appendChild(App.renderer.domElement);
@@ -59443,8 +59443,8 @@
 	  // Save the maxDistance for later purposes
 	  Controls.maxDistance = App.controls.maxDistance;
 	
-	  window.addEventListener('mousemove', Controls.onMouseMove);
-	  window.addEventListener('click', Controls.onMouseDown);
+	  App.GraphElement.addEventListener('mousemove', Controls.onMouseMove);
+	  App.GraphElement.addEventListener('click', Controls.onMouseDown);
 	};
 	
 	// This event fires a ray every time the mouse moves
@@ -101721,6 +101721,21 @@
 	
 	  _addOne (obj) {
 	    this._storage[obj.data.id] = obj;
+	  }
+	
+	  remove() {
+	    let temp = {};
+	    let count = 0;
+	    App.scene.children.forEach(function(obj) {
+	      if(obj.type !== 'PerspectiveCamera') {
+	        temp[count] = obj;
+	        ++count;
+	      }
+	    });
+	    for(var key in temp) {
+	      App.scene.remove(temp[key]);
+	    }
+	    this._storage = {};
 	  }
 	
 	  connectNodes (...args) {
