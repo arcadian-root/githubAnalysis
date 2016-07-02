@@ -53,7 +53,8 @@ function addUserToDb(user, body, callback) {
 
 // This function gets the URL for the User's public repos
 function getUserRepoUrl (user, callback) {
-	session.run("MATCH (n:User {login:'" + user + "'}) return n.repos_url as repos_url")
+	// session.run("MATCH (n:User {login:'" + user + "'}) return n.repos_url as repos_url")
+	session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' return n.repos_url as repos_url")
 		.then(function(results){
 			var repos_url = results.records[0].get('repos_url');
 			var url = repos_url + '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
@@ -86,7 +87,9 @@ function getRepoInfo(user, options, callback) {
 				totalWatches += body[i]['watchers_count'];
 			}
 			// Add User's totals to the DB
-			session.run("MATCH (n:User {login:'" + user + "'}) SET n.totalForks = " + totalForks + 
+			// session.run("MATCH (n:User {login:'" + user + "'}) SET n.totalForks = " + totalForks + 
+				// ", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches)
+			session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' SET n.totalForks = " + totalForks +
 				", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches)
 			.then(function(result){
 				console.log('Added ' + user + ' to the DB with total forks, stars, and watches');
@@ -114,8 +117,10 @@ function addUserRepos (user, body, callback) {
 				if(insertCount === body.length - 1) {
 					for (var j = 0; j < body.length; j++) {
 						session
-							.run("MATCH (n:Repo {name:'" + body[j].name + "'}), (u:User {login:'" + user + 
-								"'}) CREATE (u)-[:CONTRIBUTED_TO]->(n)")
+							// .run("MATCH (n:Repo {name:'" + body[j].name + "'}), (u:User {login:'" + user + 
+								// "'}) CREATE (u)-[:CONTRIBUTED_TO]->(n)")
+							.run("MATCH (n:Repo) WHERE n.name=~'(?i)" + body[j].name + "' MATCH (u:User) WHERE u.login=~'(?i)" + user +
+								"' MERGE (u)-[:CONTRIBUTED_TO]->(n)")
 							.then(function() {
 								++relationCount;
 								if(relationCount === body.length - 1) {
