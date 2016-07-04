@@ -10,8 +10,6 @@ import DashboardView from './../../public/client/DashboardView';
 import Filters from './../../public/client/Filters';
 import SearchBar from './../../public/client/SearchBar';
 
-
-
 describe('Main', () => {
   const wrapper = shallow(<Main />);
 
