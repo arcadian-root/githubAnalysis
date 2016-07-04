@@ -79,8 +79,8 @@ function findUser(req, res, query, insertCount) {
   session.run(query)
     .then(results => {
       // If the DB doesn't have the User, do the following...
-      // console.log('results.records.length', results.records.length)
-      if(results.records.length <= 1 && insertCount < 1 ) {
+      // if(results.records.length <= 1 && insertCount < 1 ) {
+      if(insertCount < 1 ) {        
         // Talk to Github, add User info to Db
         checkUserDb.githubGetUser(req.params.login, function(result) {
           // If User doesn't exist in Github, respond with this...
