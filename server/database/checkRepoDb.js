@@ -122,7 +122,7 @@ function addRelationships(repo, user, callback, max) {
 		// .run("MATCH (n:Repo {name:'" + repo + "'}), (u:User {login:'" + user + 
 		.run("MATCH (n:Repo) WHERE n.name=~'(?i)" + repo + "' MATCH (u:User) WHERE u.login=~'(?i)" + user + 
 								// "'}) CREATE (u)-[:CONTRIBUTED_TO]->(n)")
-								"' MERGE (u)-[:CONTRIBUTED_TO]->(n)")
+								"' MERGE (u)-[:CONTRIBUTED_TO]->(n) SET n.pingedGithub = true")
 		.then(function(){
 			++numRelationsAdded;
 			console.log("Adding User #" + numRelationsAdded + "of " + max);
