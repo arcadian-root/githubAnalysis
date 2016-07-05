@@ -19,7 +19,8 @@ module.exports = {
     if (!!query.getUsers === true) {
       // q = 'MATCH (u:User)-[:CONTRIBUTED_TO]->(n:Repo { name: "' + 
         // req.params.name + '" }) RETURN u, n';
-      q = "MATCH (u:User)-[:CONTRIBUTED_TO]->(r:Repo) WHERE r.name =~'(?i)" + req.params.name + "' RETURN u, r";
+      q = "MATCH (u:User)-[:CONTRIBUTED_TO]->(r:Repo) WHERE r.name =~'(?i)" + req.params.name + "'"
+        + " AND r.pingedGithub = TRUE RETURN u, r, r.pingedGithub as pingedGithub";
     } else {
       // q = 'MATCH (n:Repo { name: "' + req.params.name + 
         // '" }) RETURN n';
@@ -60,7 +61,9 @@ function findRepo(req, res, query, insertCount) {
   session.run(query)
     .then(results => {
       // if(results.records.length === 1 && insertCount < 1) {
-      if(insertCount < 1) {
+      // if(insertCount < 1) {
+        console.log('HERE', results.records);
+      if(results.records.length === 0 || results.records[0].get('pingedGithub') !== true) {
         checkRepoDb.githubGetRepo(req.params.name, function(result) {
           if(result === true) {
             ++insertCount;
