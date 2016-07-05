@@ -28,15 +28,23 @@ class SearchBar extends React.Component {
 
   handleSearch (event) {
     if(event.charCode === 13) {
-      var nodeType = this.state.dropDownVal;
+      let nodeType = this.state.dropDownVal;
       nodeType = nodeType.toLowerCase();
+      let url = '';
+      if(nodeType === 'users') {
+        url = 'http://localhost:3000/api/v1/users/' + event.target.value;
+      } else {
+        let target = encodeURIComponent(event.target.value);
+        url = 'http://localhost:3000/api/v1/initialRepo/' + target;
+      }
       $.ajax({
-        url: 'http://localhost:3000/api/v1/' + nodeType + '/' + event.target.value,
+        // url: 'http://localhost:3000/api/v1/' + nodeType + '/' + event.target.value,
+        url: url,
         method: 'GET',
 
         success: (data) => { 
           data = JSON.parse(data);
-          console.log(data);
+          console.log('frontend', data);
           App.clear();
           let props = data[0]._fields[0].properties;
           App.createNodeFromData({ position: [0, 0, 0], data: data[0] });

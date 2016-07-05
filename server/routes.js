@@ -11,6 +11,7 @@ module.exports = function (app, express) {
   // API endpoints
   app.get('/api/v1/repos/:name', db.getRepo);
   app.get('/api/v1/users/:login', db.getUser);
+  app.get('/api/v1/initialRepo/:link', db.getInitRepo);
 
   // Authenticate requests
   app.get('/auth/github', passport.authenticate('github'));
