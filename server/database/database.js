@@ -2,6 +2,7 @@ var url = require('url');
 var querystring = require('querystring');
 var checkUserDb = require('./checkUserDb');
 var checkRepoDb = require('./checkRepoDb');
+var checkInitRepoDb = require('./checkInitRepoDb');
 
 var neo4j = require('neo4j-driver').v1;
 var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
@@ -45,7 +46,14 @@ module.exports = {
       q = "MATCH (u:User) WHERE u.login=~'(?i)" + req.params.login + "' RETURN u";
     }
     findUser(req, res, q, insertCount);
-  }
+  },
+
+  getInitRepo: function (req, res) {
+    let parsed = decodeURIComponent(req.url.slice(20));
+    checkInitRepoDb.githubGetInitRepo(parsed, function(result) {
+      res.end(JSON.stringify(result));
+    });
+  },
 };
 
 function findRepo(req, res, query, insertCount) {
@@ -53,13 +61,12 @@ function findRepo(req, res, query, insertCount) {
     .then(results => {
       // if(results.records.length === 1 && insertCount < 1) {
       if(insertCount < 1) {
-
         checkRepoDb.githubGetRepo(req.params.name, function(result) {
-          if(result === false) {
-            res.end('No other contributors!');
-          } else {
+          if(result === true) {
             ++insertCount;
             findRepo(req, res, query, insertCount);
+          } else {
+            res.end('No other contributors!');
           }
         })
       } else {

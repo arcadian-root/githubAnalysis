@@ -101,6 +101,18 @@ function getRepoInfo(repo, user, url, callback, max) {
 				console.log("ERROR when adding User's forks, stars, and watches", err);
 				// session.close();
 			})
+		} else {
+			session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' SET n.totalForks = " + totalForks + 
+				", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches)
+			.then(function(result){
+				console.log('Added ' + user + ' to the DB with total forks, stars, and watches');
+				// Start adding User's repos to the DB
+				addRelationships(repo, user, callback, max);
+			})
+			.catch(function(err) {
+				console.log("ERROR when adding User's forks, stars, and watches when body.length = 0", err);
+				// session.close();
+			})
 		}
 	});
 }
