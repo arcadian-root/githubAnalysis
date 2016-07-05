@@ -40,11 +40,12 @@ module.exports = {
       // q = 'MATCH (u:User { login: "' + req.params.login + 
         // '" })-[:CONTRIBUTED_TO]->(n:Repo) RETURN n, u';
       q = "MATCH (u:User)-[:CONTRIBUTED_TO]->(r:Repo) WHERE u.login =~'(?i)" + req.params.login +
-        "' RETURN r, u";
+        "' AND u.pingedGithub = TRUE RETURN r, u, u.pingedGithub as pingedGithub";
     } else {
       // q = 'MATCH (u:User { login: "' + req.params.login + 
         // '" }) RETURN u';
-      q = "MATCH (u:User) WHERE u.login=~'(?i)" + req.params.login + "' RETURN u";
+      q = "MATCH (u:User) WHERE u.login=~'(?i)" + req.params.login + "' AND u.pingedGithub = TRUE" +
+        " RETURN u, u.pingedGithub as pingedGithub";
     }
     findUser(req, res, q, insertCount);
   },
@@ -62,7 +63,6 @@ function findRepo(req, res, query, insertCount) {
     .then(results => {
       // if(results.records.length === 1 && insertCount < 1) {
       // if(insertCount < 1) {
-        console.log('HERE', results.records);
       if(results.records.length === 0 || results.records[0].get('pingedGithub') !== true) {
         checkRepoDb.githubGetRepo(req.params.name, function(result) {
           if(result === true) {
@@ -90,7 +90,8 @@ function findUser(req, res, query, insertCount) {
     .then(results => {
       // If the DB doesn't have the User, do the following...
       // if(results.records.length <= 1 && insertCount < 1 ) {
-      if(insertCount < 1 ) {        
+      // if(insertCount < 1 ) {     
+      if(results.records.length === 0 || results.records[0].get('pingedGithub') !== true) {   
         // Talk to Github, add User info to Db
         checkUserDb.githubGetUser(req.params.login, function(result) {
           // If User doesn't exist in Github, respond with this...
