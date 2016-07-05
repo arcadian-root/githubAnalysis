@@ -120,7 +120,7 @@ function addUserRepos (user, body, callback) {
 							// .run("MATCH (n:Repo {name:'" + body[j].name + "'}), (u:User {login:'" + user + 
 								// "'}) CREATE (u)-[:CONTRIBUTED_TO]->(n)")
 							.run("MATCH (n:Repo) WHERE n.name=~'(?i)" + body[j].name + "' MATCH (u:User) WHERE u.login=~'(?i)" + user +
-								"' MERGE (u)-[:CONTRIBUTED_TO]->(n)")
+								"' MERGE (u)-[:CONTRIBUTED_TO]->(n) SET u.pingedGithub = true")
 							.then(function() {
 								++relationCount;
 								if(relationCount === body.length - 1) {
