@@ -1,11 +1,14 @@
 var request = require('request');
-var config = require('../../config/config');
+var config = process.env.NODE_ENV === 'production' ? {} : require('../../config/config');
 
 var neo4j = require('neo4j-driver').v1;
-var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
-var session = driver.session();
-
-
+var driver;
+if ( process.env.NODE_ENV === 'production' ) {
+	driver = neo4j.driver(process.env.DB_BOLT_HOST, neo4j.auth.basic(process.env.DB_USERNAME, process.env.DB_PASSWORD));
+} else {
+	driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
+}
+var session = driver.session();	
 
 module.exports = {
 	githubGetUser: function(user, callback) {

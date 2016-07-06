@@ -48,3 +48,6 @@ public/bundle.js.map
 
 # compiled files by babel
 compiled
+
+# Dockerfile
+Dockerfile

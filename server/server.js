@@ -7,7 +7,8 @@ var path = require('path');
 var session = require('express-session');
 var passport = require('passport');
 
-var config = require('../config/config');
+var config = process.env.NODE_ENV === 'production' ? {} : require('../config/config');
+var SERVER = process.env.NODE_ENV === 'production' ? 'docker' : 'localhost';
 var GITHUB_CLIENT_ID = process.env.CLIENT_ID || config.CLIENT_ID;
 var GITHUB_CLIENT_SECRET = process.env.CLIENT_SECRET || config.CLIENT_SECRET;
 var SECRET = process.env.SESSION_SECRET || config.SESSION_SECRET;
@@ -24,7 +25,6 @@ var Strategy = require('passport-github').Strategy;
 passport.use(new Strategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
@@ -56,5 +56,5 @@ require('./routes.js')(app, express);
 // TODO: accept env variable if procided
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
-  console.log('Listen to the port', PORT);
+  console.log('Listen to the port', SERVER + ':' + PORT);
 });
