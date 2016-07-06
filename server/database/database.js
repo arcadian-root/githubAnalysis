@@ -101,6 +101,7 @@ function findUser(req, res, query, insertCount) {
         checkUserDb.githubGetUser(req.params.login, function(result) {
           // If User doesn't exist in Github, respond with this...
           if(result === false) {
+            console.log('made to not exist, @ userdoesntexist')
             res.end('User does not exist!');
             // User exists and was finished adding into DB so recursively run the function
             // to respond with the result
@@ -112,6 +113,7 @@ function findUser(req, res, query, insertCount) {
       // Else respond with the User in the DB
       } else {
         session.close();
+        console.log('@results.records')
         res.end(JSON.stringify(results.records));
       }
     })
