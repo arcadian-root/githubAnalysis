@@ -35,7 +35,7 @@ class Navigator extends React.Component {
 
   render () {
     return (
-    <nav className="navbar navbar-default light-themed-background">
+    <Navbar className="navbar navbar-default light-themed-background">
       <Grid>
       <Row className="show-grid">
         <Col xs={2} md={2}><a href='/'><img src="./static/assets/logo.png" className="logo" /></a></Col>
@@ -49,7 +49,7 @@ class Navigator extends React.Component {
       </Col>
       </Row>
     </Grid>
-  </nav>
+  </Navbar>
     )
   }
 }
