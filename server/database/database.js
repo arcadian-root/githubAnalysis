@@ -5,9 +5,14 @@ var checkRepoDb = require('./checkRepoDb');
 var checkInitRepoDb = require('./checkInitRepoDb');
 
 var neo4j = require('neo4j-driver').v1;
-var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
+var driver;
+if ( process.env.NODE_ENV === 'production' ) {
+  driver = neo4j.driver(process.env.DB_BOLT_HOST, neo4j.auth.basic(process.env.DB_USERNAME, process.env.DB_PASSWORD));
+} else {
+  driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
+}
+var session = driver.session(); 
 
-var session = driver.session();
 
 module.exports = {
   getRepo: function (req, res) {
