@@ -28,7 +28,7 @@ class SearchBar extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({validationState: ""});
+    this.setState({validationState: "", errorType: ""});
   }
 
   handleValidInput (event) {
@@ -52,7 +52,7 @@ class SearchBar extends React.Component {
 
       if((firstSlash || lastSlash || slashCount > 1 || slashCount < 1) && nodeType === 'repos')  {
         console.log
-        this.setState({validationState: 'error'});
+        this.setState({validationState: 'error', errorType: 'badQuery'});
       } else {
         this.handleSearch(event);
       }
@@ -75,7 +75,7 @@ class SearchBar extends React.Component {
 
         success: (data) => {
           if(data === 'User does not exist!') {
-            console.log('userdoesntexist')
+            this.setState({validationState: "error", errorType: "notFound"});
           } else {
             data = JSON.parse(data);
             console.log('frontend', data);
@@ -107,7 +107,9 @@ class SearchBar extends React.Component {
                   <MenuItem onSelect={this.updateDropDown.bind(this)} id="usersMenu" eventKey="Users">Users</MenuItem>
                 </DropdownButton>
             </InputGroup>
-            {this.state.validationState === 'error' ? <ControlLabel id='controllabel'>Please input a valid query using the following format: 'owner/repoName' e.g. facebook/react</ControlLabel> : <a></a> }
+            {this.state.validationState === 'error' && this.state.errorType === 'badQuery' ? <ControlLabel id='controllabel'>Please input a valid query using the following format: 'owner/repoName' e.g. facebook/react</ControlLabel> : <a></a> }
+            {this.state.validationState === 'error' && this.state.errorType === 'notFound' ? <ControlLabel id='controllabel'>User not found.</ControlLabel> : <a></a> }
+                      
           </FormGroup>
       </div>
     )
