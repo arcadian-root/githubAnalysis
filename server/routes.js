@@ -19,9 +19,9 @@ module.exports = function (app, express) {
   app.get('/auth/github/callback', 
     passport.authenticate('github', { failureRedirect: '/' }),
 
-    // Successful authentication, redirect dashboard.
+    // Successful authentication, redirect to graph.
     function (req, res) {
-      res.redirect('/dashboard');
+      res.redirect('/graph');
     }
   );
 
@@ -36,11 +36,11 @@ module.exports = function (app, express) {
     res.send(req.user);
   })
 
-  app.get('/dashboard', requestHandler.wildcard);
+  app.get('/graph', requestHandler.wildcard);
 
   app.get('/', function(req, res) {
     if(req.isAuthenticated()) {
-      res.redirect('/dashboard');
+      res.redirect('/graph');
     } else {
       res.sendFile(path.resolve(__dirname, './../public', 'index.html'));
     }
