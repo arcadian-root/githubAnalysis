@@ -37,6 +37,7 @@ class SearchBar extends React.Component {
       let firstSlash = false;
       let lastSlash = false;
       let slashCount = 0;
+      let nodeType = this.state.dropDownVal.toLowerCase();
       for(let i = 0; i < query.length; i++) {
         if(query.charAt(i) === '/' && i === 0) {
           firstSlash = true;
@@ -49,7 +50,7 @@ class SearchBar extends React.Component {
         }
       }
 
-      if(firstSlash || lastSlash || slashCount > 1 || slashCount < 1) {
+      if((firstSlash || lastSlash || slashCount > 1 || slashCount < 1) && nodeType === 'repos')  {
         console.log
         this.setState({validationState: 'error'});
       } else {
