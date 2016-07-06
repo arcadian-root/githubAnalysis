@@ -64,10 +64,10 @@ class SearchBar extends React.Component {
       nodeType = nodeType.toLowerCase();
       let url = '';
       if(nodeType === 'users') {
-        url = 'http://localhost:3000/api/v1/users/' + event.target.value;
+        url = '/api/v1/users/' + event.target.value;
       } else {
         let target = encodeURIComponent(event.target.value);
-        url = 'http://localhost:3000/api/v1/initialRepo/' + target;
+        url = '/api/v1/initialRepo/' + target;
       }
       $.ajax({
         url: url,
