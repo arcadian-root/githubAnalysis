@@ -12,16 +12,17 @@ import { Form } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import $ from 'jquery';
 import App from 'GitHub-Network-Graph';
+import NProgress from 'nprogress'
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dropDownVal: "Repos",
-      validationState: ""
+      validationState: "",
+      errorType: ""
     }
   }
-
 
   updateDropDown (event) {
     this.setState({dropDownVal: event});
@@ -60,6 +61,7 @@ class SearchBar extends React.Component {
   }
   handleSearch (event) {
     if(event.charCode === 13) {
+      NProgress.start();
       let nodeType = this.state.dropDownVal;
       nodeType = nodeType.toLowerCase();
       let url = '';
@@ -70,7 +72,6 @@ class SearchBar extends React.Component {
         url = 'http://localhost:3000/api/v1/initialRepo/' + target;
       }
       $.ajax({
-        // url: 'http://localhost:3000/api/v1/' + nodeType + '/' + event.target.value,
         url: url,
         method: 'GET',
 
@@ -80,6 +81,7 @@ class SearchBar extends React.Component {
           App.clear();
           let props = data[0]._fields[0].properties;
           App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
+          NProgress.done();
         },
 
         error: (err) => {
@@ -94,15 +96,17 @@ class SearchBar extends React.Component {
   render () {
     return (
     	<div>
-        <FormGroup controlId="formValidationError1" validationState={this.state.validationState} bsSize="small">
-            <InputGroup bsSize="small">
-              <FormControl onChange={this.handleChange.bind(this)} className="searchbar" type="text" placeholder="Search" onKeyPress={this.handleValidInput.bind(this)}/>
+        <FormGroup controlId="a" validationState={this.state.validationState} bsSize="small">
+            <InputGroup aria-describedby="helpblock" bsSize="small">
+              <FormControl id='a' onChange={this.handleChange.bind(this)} className="searchbar" type="text" 
+                placeholder={"Search " + this.state.dropDownVal}  onKeyPress={this.handleValidInput.bind(this)}/>
                 <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon"
                   title={this.state.dropDownVal} className="searchbar" >
                   <MenuItem onSelect={this.updateDropDown.bind(this)} id="reposMenu" eventKey="Repos">Repositories</MenuItem>
                   <MenuItem onSelect={this.updateDropDown.bind(this)} id="usersMenu" eventKey="Users">Users</MenuItem>
                 </DropdownButton>
             </InputGroup>
+            {this.state.validationState === 'error' ? <ControlLabel id='controllabel'>Please input a valid query using the following format: 'owner/repoName' e.g. facebook/react</ControlLabel> : <a></a> }
           </FormGroup>
       </div>
     )
@@ -110,16 +114,3 @@ class SearchBar extends React.Component {
 }
 
 export default SearchBar;
-
-// <FormGroup controlId="formValidationError1" validationState={this.state.validationState} bsSize="small">
-//                 <OverlayTrigger overlay={tooltip}><a href="#">tooltip</a>
-//             <InputGroup bsSize="small">
-//               <FormControl onChange={this.handleChange.bind(this)} className="searchbar" type="text" placeholder="Search" onKeyPress={this.handleValidInput.bind(this)}/>
-//                 <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon"
-//                   title={this.state.dropDownVal} className="searchbar" >
-//                   <MenuItem onSelect={this.updateDropDown.bind(this)} id="reposMenu" eventKey="Repos">Repositories</MenuItem>
-//                   <MenuItem onSelect={this.updateDropDown.bind(this)} id="usersMenu" eventKey="Users">Users</MenuItem>
-//                 </DropdownButton>
-//             </InputGroup>
-//                 </OverlayTrigger>
-//           </FormGroup>

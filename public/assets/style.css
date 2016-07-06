@@ -69,3 +69,8 @@
 .searchBarDrop {
   top: 9px;
 }
+
+#controllabel {
+  position:absolute;
+  top:67px;
+}
