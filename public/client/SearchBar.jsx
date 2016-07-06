@@ -12,7 +12,6 @@ import { Form } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import $ from 'jquery';
 import App from 'GitHub-Network-Graph';
-import NProgress from 'nprogress'
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -61,27 +60,29 @@ class SearchBar extends React.Component {
   }
   handleSearch (event) {
     if(event.charCode === 13) {
-      NProgress.start();
       let nodeType = this.state.dropDownVal;
       nodeType = nodeType.toLowerCase();
       let url = '';
       if(nodeType === 'users') {
-        url = 'http://localhost:3000/api/v1/users/' + event.target.value;
+        url = '/api/v1/users/' + event.target.value;
       } else {
         let target = encodeURIComponent(event.target.value);
-        url = 'http://localhost:3000/api/v1/initialRepo/' + target;
+        url = '/api/v1/initialRepo/' + target;
       }
       $.ajax({
         url: url,
         method: 'GET',
 
-        success: (data) => { 
-          data = JSON.parse(data);
-          console.log('frontend', data);
-          App.clear();
-          let props = data[0]._fields[0].properties;
-          App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
-          NProgress.done();
+        success: (data) => {
+          if(data === 'User does not exist!') {
+            console.log('userdoesntexist')
+          } else {
+            data = JSON.parse(data);
+            console.log('frontend', data);
+            App.clear();
+            let props = data[0]._fields[0].properties;
+            App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
+          }
         },
 
         error: (err) => {

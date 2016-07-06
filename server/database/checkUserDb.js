@@ -9,7 +9,7 @@ if ( process.env.NODE_ENV === 'production' ) {
 	driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
 }
 var session = driver.session();	
-
+// 
 module.exports = {
 	githubGetUser: function(user, callback) {
 		var endpoint = 'https://api.github.com/users/';
@@ -29,6 +29,7 @@ module.exports = {
 				console.log('ERROR: githubGetUser() -', e);
 			}
 			if(!body.message) {
+				console.log(options.url)
 				addUserToDb(user, body, callback);
 			} else {
 				console.log('User does not exist!');
@@ -51,6 +52,7 @@ function addUserToDb(user, body, callback) {
 			"', organizations_url:'" + body.organizations_url + "', repos_url:'" + body.repos_url + "'})")
 		.then(function(result) {	
 			// Get URL for User's public Repos
+			console.log('inside addUserToDb')
 			getUserRepoUrl(user, callback);
 		})
 		.catch(function(err) {
@@ -89,11 +91,13 @@ function getRepoInfo(user, options, callback) {
 		catch (e) {
 			console.log('ERROR: githubGetRepo() -', e);
 		}
-		
+		console.log('got to getRepoInfo')
 		var totalForks = 0;
 		var totalStars = 0;
 		var totalWatches = 0;
+		console.log(body)
 		if(body.length > 0) {
+			console.log('inside')
 			// Increment the totals from each repo
 			for(var i = 0; i < body.length; i++) {
 				totalForks += body[i]['forks'];
@@ -114,6 +118,19 @@ function getRepoInfo(user, options, callback) {
 				console.log("ERROR when adding User's forks, stars, and watches", err);
 				// session.close();
 			})
+		} else {
+			session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' SET n.totalForks = " + totalForks +
+				", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches + ", n.pingedGithub = true")
+			.then(function(result){
+				console.log('Added ' + user + ' to the DB with total forks, stars, and watches');
+				// Start adding User's repos to the DB
+				// addUserRepos(user, body, callback);
+				callback(true);
+			})
+			.catch(function(err) {
+				console.log("ERROR when adding User's forks, stars, and watches", err);
+				// session.close();
+			})
 		}
 	});
 }
@@ -121,6 +138,7 @@ function getRepoInfo(user, options, callback) {
 function addUserRepos (user, body, callback) {
 	var insertCount = -1;
 	var relationCount = -1;
+	console.log('got to addUserRepos')
 	for(var i = 0; i < body.length; i++) {
 		session
 			.run("MERGE (a:Repo {name:'" + body[i].name + "', id:" + body[i].id +
