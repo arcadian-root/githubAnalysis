@@ -1,7 +1,7 @@
 //SYNC VERSION
 
 var request = require('request');
-var config = require('../../config/config');
+var config = process.env.NODE_ENV === 'production' ? {} : require('../../config/config');
 
 var neo4j = require('neo4j-driver').v1;
 var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
