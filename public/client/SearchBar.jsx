@@ -17,7 +17,8 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dropDownVal: "Repos"
+      dropDownVal: "Repos",
+      validationState: ""
     }
   }
 
@@ -26,6 +27,36 @@ class SearchBar extends React.Component {
     this.setState({dropDownVal: event});
   }
 
+  handleChange(event) {
+    this.setState({validationState: ""});
+  }
+
+  handleValidInput (event) {
+    if(event.charCode  === 13) {
+      let query = event.target.value;
+      let firstSlash = false;
+      let lastSlash = false;
+      let slashCount = 0;
+      for(let i = 0; i < query.length; i++) {
+        if(query.charAt(i) === '/' && i === 0) {
+          firstSlash = true;
+        }
+        if(query.charAt(i) === '/' && i === query.length-1) {
+          lastSlash = true;
+        }
+        if(query.charAt(i) === '/') {
+          slashCount++;
+        }
+      }
+
+      if(firstSlash || lastSlash || slashCount > 1 || slashCount < 1) {
+        console.log
+        this.setState({validationState: 'error'});
+      } else {
+        this.handleSearch(event);
+      }
+    }
+  }
   handleSearch (event) {
     if(event.charCode === 13) {
       let nodeType = this.state.dropDownVal;
@@ -62,10 +93,9 @@ class SearchBar extends React.Component {
   render () {
     return (
     	<div>
-      
-          <FormGroup bsSize="small">
+        <FormGroup controlId="formValidationError1" validationState={this.state.validationState} bsSize="small">
             <InputGroup bsSize="small">
-              <FormControl className="searchbar" type="text" placeholder="Search" onKeyPress={this.handleSearch.bind(this)}/>
+              <FormControl onChange={this.handleChange.bind(this)} className="searchbar" type="text" placeholder="Search" onKeyPress={this.handleValidInput.bind(this)}/>
                 <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon"
                   title={this.state.dropDownVal} className="searchbar" >
                   <MenuItem onSelect={this.updateDropDown.bind(this)} id="reposMenu" eventKey="Repos">Repositories</MenuItem>
@@ -73,10 +103,22 @@ class SearchBar extends React.Component {
                 </DropdownButton>
             </InputGroup>
           </FormGroup>
-        
       </div>
     )
   }
 }
 
 export default SearchBar;
+
+// <FormGroup controlId="formValidationError1" validationState={this.state.validationState} bsSize="small">
+//                 <OverlayTrigger overlay={tooltip}><a href="#">tooltip</a>
+//             <InputGroup bsSize="small">
+//               <FormControl onChange={this.handleChange.bind(this)} className="searchbar" type="text" placeholder="Search" onKeyPress={this.handleValidInput.bind(this)}/>
+//                 <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon"
+//                   title={this.state.dropDownVal} className="searchbar" >
+//                   <MenuItem onSelect={this.updateDropDown.bind(this)} id="reposMenu" eventKey="Repos">Repositories</MenuItem>
+//                   <MenuItem onSelect={this.updateDropDown.bind(this)} id="usersMenu" eventKey="Users">Users</MenuItem>
+//                 </DropdownButton>
+//             </InputGroup>
+//                 </OverlayTrigger>
+//           </FormGroup>
