@@ -9,7 +9,7 @@ import GraphContainer from './GraphContainer';
 import Organization from './organization';
 
 
-class DashboardView extends React.Component {
+class GraphView extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -23,5 +23,5 @@ class DashboardView extends React.Component {
   }
 }
 
-export default DashboardView;
+export default GraphView;
     

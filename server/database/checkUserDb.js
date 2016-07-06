@@ -22,7 +22,12 @@ module.exports = {
 		}
 		
 		request(options, function(err, res, body) {
-			body = JSON.parse(body);
+			try {
+				body = JSON.parse(body);
+			}
+			catch (e) {
+				console.log('ERROR: githubGetUser() -', e);
+			}
 			if(!body.message) {
 				addUserToDb(user, body, callback);
 			} else {
@@ -78,7 +83,13 @@ function getUserRepoUrl (user, callback) {
 
 function getRepoInfo(user, options, callback) {
 	request(options, function(err, res, body) {
-		body = JSON.parse(body);
+		try {
+			body = JSON.parse(body);
+		}
+		catch (e) {
+			console.log('ERROR: githubGetRepo() -', e);
+		}
+		
 		var totalForks = 0;
 		var totalStars = 0;
 		var totalWatches = 0;

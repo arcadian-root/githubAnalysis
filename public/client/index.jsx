@@ -11,14 +11,13 @@ import store from './../redux/store';
 // import other components
 import Main from './main';
 import LandingPageView from './LandingPageView';
-import userRepoGraph from './userRepoGraph'
-import DashboardView from './DashboardView';
+import GraphView from './GraphView';
 
 // <Route path='/' component={Login}/>
 // <Route path='/login' component={Login}/>
 // <Route component={Main}>
 //   <Route path='create' component={Form}/>
-//   <Route path='dashboard' component={Feed}/>
+//   <Route path='graph' component={Feed}/>
 //   <Route path='post/:arcId' component={FacebookPost}/>
 // </Route>
 render((
@@ -26,7 +25,7 @@ render((
     <Router history={browserHistory}>
       <Route component={Main}>
         <Route path='/' component={LandingPageView} /> 
-        <Route path='/dashboard' component={DashboardView} />
+        <Route path='/graph' component={GraphView} />
       </Route>
     </Router>
   </Provider> 

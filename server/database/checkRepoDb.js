@@ -14,8 +14,6 @@ var numRelationsAdded = 0;
 
 module.exports = {
 	githubGetRepo: function(repo, callback) {
-		console.log('here is the name breh', repo);
-
 		session
 			// .run("MATCH (n:Repo {name: '" + repo + "'}) return n.contributors_url as url")
 			.run("MATCH (n:Repo) WHERE n.name=~'(?i)" + repo + "' return n.contributors_url as url")
@@ -31,8 +29,13 @@ module.exports = {
 					}
 				}
 				request(options, function(err, res, body) {
-					body = JSON.parse(body);
-					addUserToDb(repo, body, callback);
+					try {
+						body = JSON.parse(body);
+						addUserToDb(repo, body, callback);
+					}
+					catch (e) {
+						console.log('ERROR: githubGetRepo() -', e);
+					}
 				})
 			})
 
@@ -82,7 +85,12 @@ function getRepoInfo(repo, user, url, callback, max) {
 		}
 	}
 	request(options, function(err, res, body) {
-		body = JSON.parse(body);
+		try {
+			body = JSON.parse(body);
+		}
+		catch (e) {
+			console.log('ERROR: getRepoInfo() -', e);
+		}
 		var totalForks = 0;
 		var totalStars = 0;
 		var totalWatches = 0;
