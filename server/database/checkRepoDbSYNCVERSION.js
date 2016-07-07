@@ -25,7 +25,7 @@ module.exports = {
 			.then(function(result) {
 				var url = result.records[0].get('url');
 				if ( process.env.NODE_ENV === 'production' ) {
-					url = endpoint + user + '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
+					url += '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
 				} else {
 					url += '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
 				}
