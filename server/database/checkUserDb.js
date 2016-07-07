@@ -74,7 +74,12 @@ function getUserRepoUrl (user, callback) {
 	session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' return n.repos_url as repos_url")
 		.then(function(results){
 			var repos_url = results.records[0].get('repos_url');
-			var url = repos_url + '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+			var url;
+			if ( process.env.NODE_ENV === 'production' ) {
+				url = repos_url + '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
+			} else {
+				url = repos_url + '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+			}
 			var options = {
 				url: url,
 				headers: {
