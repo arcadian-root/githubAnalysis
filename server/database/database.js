@@ -3,13 +3,14 @@ var querystring = require('querystring');
 var checkUserDb = require('./checkUserDb');
 var checkRepoDb = require('./checkRepoDb');
 var checkInitRepoDb = require('./checkInitRepoDb');
+var config = process.env.NODE_ENV === 'production' ? {} : require('../../config/config');
 
 var neo4j = require('neo4j-driver').v1;
 var driver;
 if ( process.env.NODE_ENV === 'production' ) {
   driver = neo4j.driver(process.env.DB_BOLT_HOST, neo4j.auth.basic(process.env.DB_USERNAME, process.env.DB_PASSWORD));
 } else {
-  driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
+  driver = neo4j.driver("bolt://localhost", neo4j.auth.basic(config.DB_USERNAME, config.DB_PASSWORD));
 }
 var session = driver.session(); 
 

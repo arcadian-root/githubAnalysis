@@ -6,7 +6,7 @@ var driver;
 if ( process.env.NODE_ENV === 'production' ) {
 	driver = neo4j.driver(process.env.DB_BOLT_HOST, neo4j.auth.basic(process.env.DB_USERNAME, process.env.DB_PASSWORD));
 } else {
-	driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "neo4j1"));
+	driver = neo4j.driver("bolt://localhost", neo4j.auth.basic(config.DB_USERNAME, config.DB_PASSWORD));
 }
 var session = driver.session();	
 // 
@@ -74,7 +74,12 @@ function getUserRepoUrl (user, callback) {
 	session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' return n.repos_url as repos_url")
 		.then(function(results){
 			var repos_url = results.records[0].get('repos_url');
-			var url = repos_url + '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+			var url;
+			if ( process.env.NODE_ENV === 'production' ) {
+				url = repos_url + '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
+			} else {
+				url = repos_url + '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+			}
 			var options = {
 				url: url,
 				headers: {
