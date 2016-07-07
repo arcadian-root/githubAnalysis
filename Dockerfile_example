@@ -2,13 +2,13 @@ FROM node
 
 MAINTAINER <name>
 
-ENV CLIENT_ID < github client ID >
-ENV CLIENT_SECRET < github client secret >
-ENV SESSION_SECRET < session secret >
+ENV CLIENT_ID < github-client-ID >
+ENV CLIENT_SECRET < github-client-secret >
+ENV SESSION_SECRET < session-secret >
 ENV NODE_ENV production
-ENV DB_BOLT_HOST < neo4j bolt host on remote server >
-ENV DB_USERNAME < neo4j username >
-ENV DB_PASSWORD < neo4j password >
+ENV DB_BOLT_HOST < neo4j-bolt-host-on-remote-server >
+ENV DB_USERNAME < neo4j-username >
+ENV DB_PASSWORD < neo4j-password >
 
 
 RUN mkdir -p /apps
