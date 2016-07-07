@@ -7,12 +7,6 @@ let LandingPageView = (props) => (
   <div>
       <div className="container loginContainer vertical-center" id="backgroundDiv">
         <div className="col-md-4 col-md-offset-1" id="leftContainer">
-          <img
-            src={"../static/assets/background.jpg"}
-            alt="Logo"
-            width="100%"
-          >
-          </img>
           <div className="h1" id="upperText">Discover Your Network</div>
           <div className="h3" id="middleText"></div>
           <br />
