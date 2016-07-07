@@ -12,7 +12,6 @@ class Graph extends React.Component {
         method: 'GET',
         url: '/user/info'
       }).done( (data) => {
-        console.log(data)
         if (typeof App !== 'undefined') { 
 		      if (!App.initialized) { App.init(data.username); }
     		} else { 

@@ -10,14 +10,30 @@ if ( process.env.NODE_ENV === 'production' ) {
 }
 var session = driver.session();
 
+/* 
+* This file does the following in this order:
+* 1. Find the queried Repo in the DB and makes a request to GitHub API for all contributors
+*    that the Repo has
+* 2. Adds all of those contributors (Users) and their information into our DB and make a request 
+*    for information on all of the User's total forks, stars, and watches.
+* 3. Add relationships between the Repo and all of its contributors.
+*/
+
+
+/*
+* numRelationsAdded keeps track of how many relationships between a User and his/her Repos were
+* added our DB. Once numRelationsAdded have been incremented enough to equal the exact amount
+* of Repos a User has, it will execute a callback with an argument of true to tell the server to
+* give back the Repo data to the client. The numRelationsAdded is globally declared here 
+* to ensure asynchronous calls work correctly.
+*/
 var numRelationsAdded = 0;
 
 module.exports = {
 	githubGetRepo: function(repo, callback) {
+		// Find the Repo in our DB
 		session
-			// .run("MATCH (n:Repo {name: '" + repo + "'}) return n.contributors_url as url")
 			.run("MATCH (n:Repo) WHERE n.name=~'(?i)" + repo + "' return n.contributors_url as url")
-
 			.then(function(result) {
 				var url = result.records[0].get('url');
 				if ( process.env.NODE_ENV === 'production' ) {
@@ -25,13 +41,14 @@ module.exports = {
 				} else {
 					url += '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
 				}
-				// url =	url.slice(0, url.length-13);
 				var options = {
 					url: url,
 					headers: {
   					'User-Agent': 'adtran117'
 					}
 				}
+
+				// Make a request with the Repo's contributors URL
 				request(options, function(err, res, body) {
 					try {
 						body = JSON.parse(body);
@@ -42,22 +59,9 @@ module.exports = {
 					}
 				})
 			})
-
-
-
-		// var endpoint = 'https://api.github.com/users/';
-		// var url = endpoint + user + '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
-		// var options = {
-		// 	url: url,
-		// 	headers: {
-	 //  		'User-Agent': 'adtran117'
-		// 	}
-		// }
-		
 	}
-
 };
-
+// THis function adds all of the Repo's contributors into our DB
 function addUserToDb(repo, body, callback) {
 	var insertCount = -1;
 	for(var i = 0; i < body.length; i++) {
@@ -74,12 +78,13 @@ function addUserToDb(repo, body, callback) {
 			})
 			.catch(function(err) {
 				console.log("Error attempting to add User to the DB", err);
-				// session.close();
 			})
 		
 	}
 }
 
+// This function gets all of the contributors Repos and attaches total Forks, Watches, and Stars
+// properties to the contributors
 function getRepoInfo(repo, user, url, callback, max) {
 	if ( process.env.NODE_ENV === 'production' ) {
 		url += '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
@@ -110,7 +115,6 @@ function getRepoInfo(repo, user, url, callback, max) {
 				totalWatches += body[i]['watchers_count'];
 			}
 			// Add User's totals to the DB
-			// session.run("MATCH (n:User {login:'" + user + "'}) SET n.totalForks = " + totalForks + 
 			session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' SET n.totalForks = " + totalForks + 
 				", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches)
 			.then(function(result){
@@ -120,7 +124,6 @@ function getRepoInfo(repo, user, url, callback, max) {
 			})
 			.catch(function(err) {
 				console.log("ERROR when adding User's forks, stars, and watches", err);
-				// session.close();
 			})
 		} else {
 			session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' SET n.totalForks = " + totalForks + 
@@ -132,18 +135,16 @@ function getRepoInfo(repo, user, url, callback, max) {
 			})
 			.catch(function(err) {
 				console.log("ERROR when adding User's forks, stars, and watches when body.length = 0", err);
-				// session.close();
 			})
 		}
 	});
 }
 
+// Create relationships with the original Repo and its contributors
 function addRelationships(repo, user, callback, max) {
 	session
-		// .run("MATCH (n:Repo {name:'" + repo + "'}), (u:User {login:'" + user + 
 		.run("MATCH (n:Repo) WHERE n.name=~'(?i)" + repo + "' MATCH (u:User) WHERE u.login=~'(?i)" + user + 
-								// "'}) CREATE (u)-[:CONTRIBUTED_TO]->(n)")
-								"' MERGE (u)-[:CONTRIBUTED_TO]->(n) SET n.pingedGithub = true")
+			"' MERGE (u)-[:CONTRIBUTED_TO]->(n) SET n.pingedGithub = true")
 		.then(function(){
 			++numRelationsAdded;
 			console.log("Adding User #" + numRelationsAdded + "of " + max);

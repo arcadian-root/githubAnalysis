@@ -14,13 +14,12 @@ var GITHUB_CLIENT_SECRET = process.env.CLIENT_SECRET || config.CLIENT_SECRET;
 var SECRET = process.env.SESSION_SECRET || config.SESSION_SECRET;
 
 
-// authentication
+// Authentication
 app.use(session({secret: SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Configure Github authentication strategy
-
 var Strategy = require('passport-github').Strategy;
 passport.use(new Strategy({
     clientID: GITHUB_CLIENT_ID,
@@ -40,7 +39,7 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
-// middleware
+// Middleware
 app.use('/static', express.static(__dirname + "/../public/"));
 
 app.use(bodyParser.json());
@@ -53,7 +52,6 @@ app.use(function (req, res, next) {
 
 require('./routes.js')(app, express);
 
-// TODO: accept env variable if procided
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
   console.log('Listen to the port', SERVER + ':' + PORT);

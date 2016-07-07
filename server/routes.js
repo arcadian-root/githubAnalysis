@@ -4,11 +4,11 @@ var db = require('./database/database.js');
 var path = require('path');
 
 module.exports = function (app, express) {  
-  // authentication
+  // Authentication
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // API endpoints
+  // API endpoints when looking up for Users or Repos
   app.get('/api/v1/repos/:name', db.getRepo);
   app.get('/api/v1/users/:login', db.getUser);
   app.get('/api/v1/initialRepo/:link', db.getInitRepo);
@@ -30,8 +30,7 @@ module.exports = function (app, express) {
    res.redirect('/');
   });
 
-  // TODO: setup endpoints
-
+  // Endpoint for when a User requests his/her session
   app.get('/user/info', function (req, res) {
     res.send(req.user);
   })

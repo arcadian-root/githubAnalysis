@@ -1,6 +1,5 @@
 var request = require('request');
 var config = process.env.NODE_ENV === 'production' ? {} : require('../../config/config');
-
 var neo4j = require('neo4j-driver').v1;
 var driver;
 if ( process.env.NODE_ENV === 'production' ) {
@@ -9,10 +8,12 @@ if ( process.env.NODE_ENV === 'production' ) {
 	driver = neo4j.driver("bolt://localhost", neo4j.auth.basic(config.DB_USERNAME, config.DB_PASSWORD));
 }
 var session = driver.session();	
-
-
 var checkRepoDb = require('./checkRepoDb');
 
+/*
+* This file handles repo searches from the client when the client specifically uses the search bar
+* in the front end. When this occurs, the searched repo is the first and only node on the ThreeJS view.
+*/ 
 
 module.exports = {
 	githubGetInitRepo: function(repoOwnName, callback) {
@@ -22,7 +23,6 @@ module.exports = {
 			.then(function(result) {
 				// If the pingedGithub property is true, we just need to fetch the node from the DB
 				if(result.records[0].get('pingedGithub') === true) {
-					console.log('inside again')
 					callback(result.records);
 				} 
 			})
@@ -58,10 +58,7 @@ function fetchRepo(repoOwnName, callback) {
 			  	", contributors_url:'" + body.contributors_url + "', updated_at:'" + 
 			  	body.updated_at + "', pingedGithub:" + true + "})")
 				.then(function(result) {
-					// console.log('success');
-					// console.log(repoOwnName);
-					let repoName = repoOwnName.split('/')[1];
-					// getUsers(repoOwnName, body.contributors_url);
+					var repoName = repoOwnName.split('/')[1];
 					checkRepoDb.githubGetRepo(repoName, function(result) {
 						if(result === false) {
 							console.log('Repo doesnt exist!');
@@ -71,7 +68,6 @@ function fetchRepo(repoOwnName, callback) {
 								".*' RETURN n")
 							.then(function(result) {
 								console.log('done');
-								// console.log(result.res)
 								callback(result.records);
 							})
 						}
