@@ -40,6 +40,7 @@ module.exports = {
     let query = querystring.parse(parsed.query);
     let q;
     let insertCount = 0;
+    console.log('here', typeof req.params.login);
 
     if (!!query.getRepos === true) {
       // q = 'MATCH (u:User { login: "' + req.params.login + 
