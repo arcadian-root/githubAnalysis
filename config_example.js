@@ -4,7 +4,9 @@
 var configuration = {
   CLIENT_ID: '',
   CLIENT_SECRET: '',
-  SESSION_SECRET: ''
+  SESSION_SECRET: '',
+  DB_USERNAME: '',
+  DB_PASSWORD: ''
 }
 
 module.exports = configuration;

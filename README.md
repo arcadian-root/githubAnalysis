@@ -6,7 +6,7 @@
 
 #### Get the code
 * Fork and clone this repo
-* `npm install`
+* Run `npm install`
 
 #### Set up Github OAuth
 
@@ -25,11 +25,14 @@
 #### Set up Session Secret
   * Set `SESSION_SECRET` in `config/config.js` to 'asdghfwutry'
 
-  * Start up neo4j
+#### Start up neo4j
+  * Start neo4j server on `localhost`
+  * Define `DB_USERNAME` and `DB_PASSWORD` in `config/config.js`
 
 #### Start the App
 
-* `npm start`
+* Run `npm run build`
+* Run `npm start`
 * Browse to [http://localhost:3000](http://localhost:3000)
 
 ### Deployment
