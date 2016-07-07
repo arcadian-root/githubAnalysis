@@ -42,4 +42,21 @@
 
 ## Deployment
 
-* //TODO: write deployment documentation 
+* See [deployment.md](docs/deployment.md) for how to deploy using Docker.
+
+
+
+## Schema
+
+* See [Schema](docs/schema.md)
+
+
+
+## Team
+
+* [Andy Tran](https://github.com/adtran117)
+* [Mario Yeung](https://github.com/marioyeung)
+* [Michael Daly](https://github.com/michael-daly)
+
+
+
