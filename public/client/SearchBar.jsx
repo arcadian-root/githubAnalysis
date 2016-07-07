@@ -74,10 +74,10 @@ class SearchBar extends React.Component {
         method: 'GET',
 
         success: (data) => {
-          if(data === 'User does not exist!') {
+          data = JSON.parse(data);
+          if(data === false) {
             this.setState({validationState: "error", errorType: "notFound"});
           } else {
-            data = JSON.parse(data);
             console.log('frontend', data);
             App.clear();
             let props = data[0]._fields[0].properties;
@@ -108,8 +108,8 @@ class SearchBar extends React.Component {
                 </DropdownButton>
             </InputGroup>
             {this.state.validationState === 'error' && this.state.errorType === 'badQuery' ? <ControlLabel id='controllabel'>Please input a valid query using the following format: 'owner/repoName' e.g. facebook/react</ControlLabel> : <a></a> }
-            {this.state.validationState === 'error' && this.state.errorType === 'notFound' ? <ControlLabel id='controllabel'>User not found.</ControlLabel> : <a></a> }
-                      
+            {this.state.validationState === 'error' && this.state.errorType === 'notFound' && this.state.dropDownVal === "Users" ? <ControlLabel id='controllabel'>User not found on GitHub</ControlLabel> : <a></a> }
+            {this.state.validationState === 'error' && this.state.errorType === 'notFound' && this.state.dropDownVal === "Repos"? <ControlLabel id='controllabel'> Repo not found on GitHub</ControlLabel> : <a></a>}
           </FormGroup>
       </div>
     )

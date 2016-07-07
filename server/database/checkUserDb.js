@@ -20,6 +20,8 @@ module.exports = {
 	  		'User-Agent': 'adtran117'
 			}
 		}
+
+		console.log(url);
 		
 		request(options, function(err, res, body) {
 			try {
@@ -95,7 +97,6 @@ function getRepoInfo(user, options, callback) {
 		var totalForks = 0;
 		var totalStars = 0;
 		var totalWatches = 0;
-		console.log(body)
 		if(body.length > 0) {
 			console.log('inside')
 			// Increment the totals from each repo

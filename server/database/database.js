@@ -58,7 +58,7 @@ module.exports = {
   getInitRepo: function (req, res) {
     let parsed = decodeURIComponent(req.url.slice(20));
     checkInitRepoDb.githubGetInitRepo(parsed, function(result) {
-      res.end(JSON.stringify(result));
+        res.end(JSON.stringify(result));
     });
   },
 };
@@ -101,8 +101,8 @@ function findUser(req, res, query, insertCount) {
         checkUserDb.githubGetUser(req.params.login, function(result) {
           // If User doesn't exist in Github, respond with this...
           if(result === false) {
-            console.log('made to not exist, @ userdoesntexist')
-            res.end('User does not exist!');
+            console.log('User doesnt exist!');
+            res.end(JSON.stringify(false));
             // User exists and was finished adding into DB so recursively run the function
             // to respond with the result
           } else {

@@ -46,8 +46,8 @@ function fetchRepo(repoOwnName, callback) {
 	request(options, function(err, res, body) {
 		body = JSON.parse(body);
 		if(body.message) {
-			console.log('repo does not exist');
-			callback('Repo does not exist.');
+			console.log('Repo does not exist!');
+			callback(false);
 		} else {
 			session
 				.run("MERGE (a:Repo {name:'" + body.name + "', id:" + body.id +
@@ -60,8 +60,8 @@ function fetchRepo(repoOwnName, callback) {
 					// getUsers(repoOwnName, body.contributors_url);
 					checkRepoDb.githubGetRepo(repoName, function(result) {
 						if(result === false) {
-							console.log('repo doesnt exist');
-							callback('repo doesnt exist');
+							console.log('Repo doesnt exist!');
+							callback(false);
 						} else {
 							session.run("MATCH (n:Repo) WHERE n.contributors_url =~ '(?i).*" + repoOwnName +
 								".*' RETURN n")
