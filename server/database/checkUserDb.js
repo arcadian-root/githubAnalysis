@@ -13,7 +13,12 @@ var session = driver.session();
 module.exports = {
 	githubGetUser: function(user, callback) {
 		var endpoint = 'https://api.github.com/users/';
-		var url = endpoint + user + '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+		var url;
+		if ( process.env.NODE_ENV === 'production' ) {
+			url = endpoint + user + '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
+		} else {
+			url = endpoint + user + '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+		}
 		var options = {
 			url: url,
 			headers: {
