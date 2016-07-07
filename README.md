@@ -1,5 +1,5 @@
 # GitNet
-* Visualize Github Network by Contribution to Repositories
+* Visualization of Github Network by Contribution to Repositories
 
 ## Getting Started
 
@@ -36,6 +36,6 @@
 * Run `npm start`
 * Browse to [http://localhost:3000](http://localhost:3000)
 
-### Deployment
+## Deployment
 
 * //TODO: write deployment documentation 
