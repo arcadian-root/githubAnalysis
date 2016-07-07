@@ -20,7 +20,11 @@ module.exports = {
 
 			.then(function(result) {
 				var url = result.records[0].get('url');
-				url += '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+				if ( process.env.NODE_ENV === 'production' ) {
+					url += '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
+				} else {
+					url += '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+				}
 				// url =	url.slice(0, url.length-13);
 				var options = {
 					url: url,
@@ -77,7 +81,11 @@ function addUserToDb(repo, body, callback) {
 }
 
 function getRepoInfo(repo, user, url, callback, max) {
-	url += '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+	if ( process.env.NODE_ENV === 'production' ) {
+		url += '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
+	} else {
+		url += '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+	}
 	var options = {
 		url: url,
 		headers: {

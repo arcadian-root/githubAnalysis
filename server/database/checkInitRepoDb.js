@@ -35,7 +35,11 @@ module.exports = {
 
 function fetchRepo(repoOwnName, callback) {
 	var url = 'https://api.github.com/repos/' + repoOwnName;
-	url += '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+	if ( process.env.NODE_ENV === 'production' ) {
+		url += '?client_id=' + process.env.CLIENT_ID+ '&client_secret=' + process.env.CLIENT_SECRET;
+	} else {
+		url += '?client_id=' + config.CLIENT_ID+ '&client_secret=' + config.CLIENT_SECRET;
+	}
 	var options = {
 		url: url,
 		headers: {
