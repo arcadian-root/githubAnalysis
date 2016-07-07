@@ -1,4 +1,5 @@
-# githubAnalysis
+# GitNet
+* Visualize Github Network by Contribution to Repositories
 
 ## Getting Started
 
@@ -20,7 +21,7 @@
       * Create a new folder called `config`
       * Create a new file called `config.js` inside the folder `config`
       * Paste the content from `config_example.js` to `config.js`
-      * Fill out properties `CLIENT_ID`, `CLIENT_SECRET`
+      * Define properties `CLIENT_ID` and `CLIENT_SECRET`
 
 #### Set up Session Secret
   * Set `SESSION_SECRET` in `config/config.js` to 'asdghfwutry'
