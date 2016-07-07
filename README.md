@@ -41,7 +41,7 @@
 
 
 ## Architecture
-[architecture](/public/assets/architecture.png)
+![architecture](/public/assets/architecture.png)
 
 
 ## Deployment
