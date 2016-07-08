@@ -11,7 +11,7 @@ import store from './../redux/store';
 // import other components
 import Main from './main';
 import LandingPageView from './LandingPageView';
-import GraphView from './GraphView';
+import GraphContainer from './GraphContainer';
 
 // <Route path='/' component={Login}/>
 // <Route path='/login' component={Login}/>
@@ -25,7 +25,7 @@ render((
     <Router history={browserHistory}>
       <Route component={Main}>
         <Route path='/' component={LandingPageView} /> 
-        <Route path='/graph' component={GraphView} />
+        <Route path='/graph' component={GraphContainer} />
       </Route>
     </Router>
   </Provider> 
