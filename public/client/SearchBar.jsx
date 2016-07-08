@@ -1,14 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-// import { Navbar } from 'react-bootstrap';
-// import { Nav } from 'react-bootstrap';
 import { FormGroup } from 'react-bootstrap';
 import { FormControl } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { DropdownButton } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
 import { ControlLabel } from 'react-bootstrap';
-// import { Form } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import $ from 'jquery';
 import App from 'GitHub-Network-Graph';

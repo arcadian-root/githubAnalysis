@@ -14,113 +14,109 @@ if ( process.env.NODE_ENV === 'production' ) {
 }
 var session = driver.session(); 
 
+/*
+* This file handles the interaction between the front end's request for Users or Repos. There are 3 main
+* types of requests:
+*
+* 1. When the client asks for a User
+* 2. When the client asks for a Repo when there are already other nodes on the ThreeJS view
+* 3. When the client asks for a Repo when there is no nodes on the ThreeJS view
+* 
+* getRepo handles scenario #1, getUser handles scenario #2, getInitRepo handles scenario #2
+*/
 
 module.exports = {
   getRepo: function (req, res) {
-    let parsed = url.parse(req.url);
-    let query = querystring.parse(parsed.query);
-    let q;
-    let insertCount = 0;
+    var parsed = url.parse(req.url);
+    var query = querystring.parse(parsed.query);
+    var q;
 
     if (!!query.getUsers === true) {
-      // q = 'MATCH (u:User)-[:CONTRIBUTED_TO]->(n:Repo { name: "' + 
-        // req.params.name + '" }) RETURN u, n';
       q = "MATCH (u:User)-[:CONTRIBUTED_TO]->(r:Repo) WHERE r.name =~'(?i)" + req.params.name + "'"
         + " AND r.pingedGithub = TRUE RETURN u, r, r.pingedGithub as pingedGithub";
     } else {
-      // q = 'MATCH (n:Repo { name: "' + req.params.name + 
-        // '" }) RETURN n';
       q = "MATCH (n:Repo) WHERE n.name=~'(?i)" + req.params.name + "' RETURN n";
     }
 
-    findRepo(req, res, q, insertCount);
+    findRepo(req, res, q);
   },
 
   getUser: function (req, res) {
-    let parsed = url.parse(req.url);
-    let query = querystring.parse(parsed.query);
-    let q;
-    let insertCount = 0;
-    console.log('here', typeof req.params.login);
+    var parsed = url.parse(req.url);
+    var query = querystring.parse(parsed.query);
+    var q;
 
     if (!!query.getRepos === true) {
-      // q = 'MATCH (u:User { login: "' + req.params.login + 
-        // '" })-[:CONTRIBUTED_TO]->(n:Repo) RETURN n, u';
       q = "MATCH (u:User)-[:CONTRIBUTED_TO]->(r:Repo) WHERE u.login =~'(?i)" + req.params.login +
         "' AND u.pingedGithub = TRUE RETURN r, u, u.pingedGithub as pingedGithub";
     } else {
-      // q = 'MATCH (u:User { login: "' + req.params.login + 
-        // '" }) RETURN u';
       q = "MATCH (u:User) WHERE u.login=~'(?i)" + req.params.login + "' AND u.pingedGithub = TRUE" +
         " RETURN u, u.pingedGithub as pingedGithub";
     }
-    findUser(req, res, q, insertCount);
+    findUser(req, res, q);
   },
 
   getInitRepo: function (req, res) {
-    let parsed = decodeURIComponent(req.url.slice(20));
+    // We slice here to remove '/api/v1/initialRepo/' and to get what the client has searched
+    var parsed = decodeURIComponent(req.url.slice(20));
     checkInitRepoDb.githubGetInitRepo(parsed, function(result) {
         res.end(JSON.stringify(result));
     });
   },
 };
 
-function findRepo(req, res, query, insertCount) {
+function findRepo(req, res, query) {
   session.run(query)
-    .then(results => {
-      // if(results.records.length === 1 && insertCount < 1) {
-      // if(insertCount < 1) {
+    .then(function(results) {
+      // If the DB doesn't have the Repo, do the following...
       if(results.records.length === 0 || results.records[0].get('pingedGithub') !== true) {
+        // This function finds the Repo on Github. If checkUserDb.githubGetRepo can't find the Repo on GitHub, 
+        // the callback will have an argument of false. If the Repo exists, the Repo is 
+        // added into the DB and the callback=k will run findRepo recursively.
         checkRepoDb.githubGetRepo(req.params.name, function(result) {
           if(result === true) {
-            ++insertCount;
-            findRepo(req, res, query, insertCount);
+            findRepo(req, res, query);
           } else {
             res.end('No other contributors!');
           }
         })
       } else {
-        // session.close();
         res.end(JSON.stringify(results.records));
       }
     })
-    .catch(err => {
+    .catch(function(err) {
       console.log('ERROR: getRepo() -', err);
       res.end(err);
     });
 }
 
 
-function findUser(req, res, query, insertCount) { 
-  // console.log('insertCount', insertCount);
+function findUser(req, res, query) { 
   session.run(query)
-    .then(results => {
+    .then(function(results) {
       // If the DB doesn't have the User, do the following...
-      // if(results.records.length <= 1 && insertCount < 1 ) {
-      // if(insertCount < 1 ) {     
       if(results.records.length === 0 || results.records[0].get('pingedGithub') !== true) {   
-        // Talk to Github, add User info to Db
+        // This function finds the User on Github. If checkUserDb.githubGetUser can't find the User on GitHub, 
+        // the callback will have an argument of false. If the User exists, the User is 
+        // added into the DB and the callback will run findUser recursively.
         checkUserDb.githubGetUser(req.params.login, function(result) {
           // If User doesn't exist in Github, respond with this...
           if(result === false) {
             console.log('User doesnt exist!');
             res.end(JSON.stringify(false));
-            // User exists and was finished adding into DB so recursively run the function
-            // to respond with the result
           } else {
-            ++insertCount;
-            findUser(req, res, query, insertCount);
+            // User enow exists in our DB so recursively run the function to respond with the result
+            findUser(req, res, query);
           }
         });
-      // Else respond with the User in the DB
       } else {
+        // Else respond with the User in the DB
         session.close();
-        console.log('@results.records')
         res.end(JSON.stringify(results.records));
       }
     })
-    .catch(err => {
-      console.log('ERROR: getRepo() -', err);
+    .catch(function(err) {
+      console.log('ERROR: getUser() -', err);
       res.end(err);
     });
 }

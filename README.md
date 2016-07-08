@@ -40,6 +40,10 @@
 
 
 
+## Architecture
+![architecture](/public/assets/architecture.png)
+
+
 ## Deployment
 
 * See [deployment.md](docs/deployment.md) for how to deploy using Docker.

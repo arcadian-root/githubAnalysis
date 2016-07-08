@@ -8,8 +8,18 @@ if ( process.env.NODE_ENV === 'production' ) {
 } else {
 	driver = neo4j.driver("bolt://localhost", neo4j.auth.basic(config.DB_USERNAME, config.DB_PASSWORD));
 }
-var session = driver.session();	
-// 
+var session = driver.session();
+
+/*
+* This file the following in this order:
+*
+* 1. Ask GitHub API for the queried User's information
+* 2. Adds the User to our DB and all information bound to that User that was given by Github API
+* 3. Takes the User's repo url and make a request for all information regarding the User's repos
+* 4. Take all the information from the User's Repos and attach them as properties of the User in our DB
+* 5. Take the User's repos and add them to our DB and create a relationship between the User and his Repos
+*/
+
 module.exports = {
 	githubGetUser: function(user, callback) {
 		var endpoint = 'https://api.github.com/users/';
@@ -26,8 +36,7 @@ module.exports = {
 			}
 		}
 
-		console.log(url);
-		
+		// Asking github for User's information
 		request(options, function(err, res, body) {
 			try {
 				body = JSON.parse(body);
@@ -36,14 +45,12 @@ module.exports = {
 				console.log('ERROR: githubGetUser() -', e);
 			}
 			if(!body.message) {
-				console.log(options.url)
+				// Add the User to the DB
 				addUserToDb(user, body, callback);
 			} else {
 				console.log('User does not exist!');
 				// An argument of false shows that the searched User doesn't exist on gitHub so nothing was added to DB
 				callback(false);
-				// session.close();
-				// driver.close();
 			}
 		});
 	}
@@ -59,18 +66,15 @@ function addUserToDb(user, body, callback) {
 			"', organizations_url:'" + body.organizations_url + "', repos_url:'" + body.repos_url + "'})")
 		.then(function(result) {	
 			// Get URL for User's public Repos
-			console.log('inside addUserToDb')
 			getUserRepoUrl(user, callback);
 		})
 		.catch(function(err) {
 			console.log("Error attempting to add User to the DB", err);
-			// session.close();
 		})
 }
 
 // This function gets the URL for the User's public repos
 function getUserRepoUrl (user, callback) {
-	// session.run("MATCH (n:User {login:'" + user + "'}) return n.repos_url as repos_url")
 	session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' return n.repos_url as repos_url")
 		.then(function(results){
 			var repos_url = results.records[0].get('repos_url');
@@ -86,15 +90,15 @@ function getUserRepoUrl (user, callback) {
 		  		'User-Agent': 'adtran117'
 				}
 			}
-			// Make a request to get info on all of User's repos
+			// Make a request to get info on all of User's Repos from the Repo url we found
 			getRepoInfo(user, options, callback);
 		})
 		.catch(function(err) {
 			console.log("Error in githubGetUser..", err);
-			// session.close();
 		})
 }
 
+// This function gets all Repo information (total Forks, Stars, and Watches) from a User specified in the first argument
 function getRepoInfo(user, options, callback) {
 	request(options, function(err, res, body) {
 		try {
@@ -103,7 +107,6 @@ function getRepoInfo(user, options, callback) {
 		catch (e) {
 			console.log('ERROR: githubGetRepo() -', e);
 		}
-		console.log('got to getRepoInfo')
 		var totalForks = 0;
 		var totalStars = 0;
 		var totalWatches = 0;
@@ -116,8 +119,6 @@ function getRepoInfo(user, options, callback) {
 				totalWatches += body[i]['watchers_count'];
 			}
 			// Add User's totals to the DB
-			// session.run("MATCH (n:User {login:'" + user + "'}) SET n.totalForks = " + totalForks + 
-				// ", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches)
 			session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' SET n.totalForks = " + totalForks +
 				", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches)
 			.then(function(result){
@@ -127,29 +128,28 @@ function getRepoInfo(user, options, callback) {
 			})
 			.catch(function(err) {
 				console.log("ERROR when adding User's forks, stars, and watches", err);
-				// session.close();
 			})
 		} else {
+			// If User has no public Repos, execute the original callback with an argument of true to send start
+			// send back the queried User data to the client
 			session.run("MATCH (n:User) WHERE n.login=~'(?i)" + user + "' SET n.totalForks = " + totalForks +
 				", n.totalStars = " + totalStars + ", n.totalWatches = " + totalWatches + ", n.pingedGithub = true")
 			.then(function(result){
 				console.log('Added ' + user + ' to the DB with total forks, stars, and watches');
-				// Start adding User's repos to the DB
-				// addUserRepos(user, body, callback);
 				callback(true);
 			})
 			.catch(function(err) {
 				console.log("ERROR when adding User's forks, stars, and watches", err);
-				// session.close();
 			})
 		}
 	});
 }
 
+// This function adds all of the User's public Repos to our DB and creates relationships with the User and his Repo
+// nodes in Neo4j
 function addUserRepos (user, body, callback) {
 	var insertCount = -1;
 	var relationCount = -1;
-	console.log('got to addUserRepos')
 	for(var i = 0; i < body.length; i++) {
 		session
 			.run("MERGE (a:Repo {name:'" + body[i].name + "', id:" + body[i].id +
@@ -160,8 +160,6 @@ function addUserRepos (user, body, callback) {
 				if(insertCount === body.length - 1) {
 					for (var j = 0; j < body.length; j++) {
 						session
-							// .run("MATCH (n:Repo {name:'" + body[j].name + "'}), (u:User {login:'" + user + 
-								// "'}) CREATE (u)-[:CONTRIBUTED_TO]->(n)")
 							.run("MATCH (n:Repo) WHERE n.name=~'(?i)" + body[j].name + "' MATCH (u:User) WHERE u.login=~'(?i)" + user +
 								"' MERGE (u)-[:CONTRIBUTED_TO]->(n) SET u.pingedGithub = true")
 							.then(function() {
