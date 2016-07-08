@@ -1,6 +1,6 @@
 # GitNet
 * Visualization of Github Network by Contribution to Repositories
-
+* Deployed Link: [http://192.241.226.71:44100/](http://192.241.226.71:44100/)
 
 
 ## Getting Started on Localhost
