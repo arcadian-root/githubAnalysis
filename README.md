@@ -50,7 +50,7 @@
 
 
 ## Test
-* Make sure you have already started up neo4j server on `localhost`
+* Make sure you have already run `npm start` and started up neo4j server on `localhost`
 * Run `npm run serve`
 * Run `npm test`
   * Note: All test files are located in `/test/spec/`.
