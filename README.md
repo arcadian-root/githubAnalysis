@@ -33,7 +33,6 @@
   * Define `DB_USERNAME` and `DB_PASSWORD` in `config/config.js`
 
 #### Start the App
-
 * Run `npm run build`
 * Run `npm start`
 * Browse to [http://localhost:3000](http://localhost:3000)
@@ -44,20 +43,26 @@
 ![architecture](/public/assets/architecture.png)
 
 
-## Deployment
 
+## Test
+* Make sure you have already started up neo4j server on `localhost`
+* Run `npm run serve`
+* Run `npm test`
+  * Note: All test files are located in `/test/spec/`.
+
+
+
+## Deployment
 * See [deployment.md](docs/deployment.md) for how to deploy using Docker.
 
 
 
 ## Schema
-
 * See [Schema](docs/schema.md)
 
 
 
 ## Team
-
 * [Andy Tran](https://github.com/adtran117)
 * [Mario Yeung](https://github.com/marioyeung)
 * [Michael Daly](https://github.com/michael-daly)
