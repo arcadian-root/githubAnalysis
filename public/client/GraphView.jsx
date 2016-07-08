@@ -11,6 +11,12 @@ class GraphView extends React.Component {
     super(props);
   }
 
+  componentWillMount(){
+    // document.body.style.backgroundColor = "#E5EFF8";
+    document.body.style.background = "url('static/assets/bg2.png') top fixed";
+    
+  }
+
   render () {
     return (
     	<div>

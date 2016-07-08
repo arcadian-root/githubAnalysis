@@ -15,17 +15,17 @@ class SearchBar extends React.Component {
     super(props);
     this.state = {
       dropDownVal: "Repos",
-      validationState: "",
+      validationState: null,
       errorType: ""
     }
   }
 
   updateDropDown (event) {
-    this.setState({dropDownVal: event, validationState: ""});
+    this.setState({dropDownVal: event, validationState: null});
   }
 
   handleChange(event) {
-    this.setState({validationState: "", errorType: ""});
+    this.setState({validationState: null, errorType: ""});
   }
 
   handleValidInput(event) {

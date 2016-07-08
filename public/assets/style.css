@@ -78,3 +78,43 @@
 .navbar {
   border-radius: 0 !important;
 }
+
+#leftContainer {
+  /*background: rgba(122, 130, 136, 0.6)!important;*/
+  background: rgba(255, 255, 255, 0.7)!important;
+  border-radius: 8px !important;
+  /*padding: 10px;*/
+  /*padding-left: 20px;*/
+  /*padding-right: 20px;*/
+  transform:translate(0%, 20%);
+}
+
+#loginButton {
+  width: 100%;
+}
+
+
+#upperText, #middleText {
+  /*color: #58595B;*/
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#landingpageimg {
+  /*bottom:0px;*/
+  position: relative;
+  float: right;
+  left:100px;
+  /*transform:translate(-50%,50%);*/
+}
+
+#jumbo {
+  background: rgba(255, 255, 255, 0)!important;
+  padding-left: 20px;
+  /*bottom:0px;*/
+  /*right:0px;*/
+}
+
+.container {
+  padding-left: -50px;
+}
