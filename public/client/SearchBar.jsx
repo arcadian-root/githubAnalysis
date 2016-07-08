@@ -100,9 +100,9 @@ class SearchBar extends React.Component {
             this.setState({validationState: "error", errorType: "notFound"});
           } else {
             console.log('frontend', data);
-            App.clear();
-            let props = data[0]._fields[0].properties;
-            App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
+            App.reset(data[0]);
+            // let props = data[0]._fields[0].properties;
+            // App.createNodeFromData({ position: [0, 0, 0], data: data[0] });
             this.setState({validationState: "success"})
           }
         },

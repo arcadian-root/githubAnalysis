@@ -16,7 +16,7 @@ class Filters extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dropDownSortType: "Total Forks",
+      dropDownSortType: "totalForks",
       isSorted: 'default'
     }
   }
@@ -27,8 +27,12 @@ class Filters extends React.Component {
 
   updateSortedState(event) {
     if(this.state.isSorted === 'default') {
+      console.log(event);
+      var arr = App.sort('Users', this.state.dropDownSortType);
+      App.arrangeSortedNodes(App.organizeNodes(arr));
       this.setState({isSorted: 'info'})
     } else {
+      App.resetNodes();
       this.setState({isSorted: 'default'});
     }
   }
@@ -39,9 +43,9 @@ class Filters extends React.Component {
   		<ButtonGroup id='sortGroup'>
         <Button onClick={this.updateSortedState.bind(this)} id="light-themed-background"  bsStyle={this.state.isSorted}>Sort Users</Button>
         <DropdownButton title={this.state.dropDownSortType}>
-          <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Total Forks">Total Forks</MenuItem>
-          <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Total Stars">Total Stars</MenuItem>
-          <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="Total Followers">Total Followers</MenuItem>
+          <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="totalForks">Total Forks</MenuItem>
+          <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="totalStars">Total Stars</MenuItem>
+          <MenuItem onSelect={this.updateDropDown.bind(this)} eventKey="totalFollowers">Total Followers</MenuItem>
         </DropdownButton>
       </ButtonGroup>
   	)
