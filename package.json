@@ -7,7 +7,7 @@
     "build": "webpack -d --progress --inline --watch",
     "serve": "babel . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled,lib,config,config_example.js,webpack.config.js,public/bundle.js --source-maps inline --watch",
     "start": "nodemon server/server.js",
-    "test": "mocha compiled/test/spec/clientSpec.js & mocha compiled/test/spec/serverSpec.js"
+    "test": "mocha compiled/test/spec/clientSpec.js & mocha compiled/test/spec/serverSpec.js & mocha compiled/test/spec/integrationTest.js"
   },
   "repository": {
     "type": "git",
