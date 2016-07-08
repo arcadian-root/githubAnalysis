@@ -39,25 +39,3 @@ class LandingPageView extends React.Component {
 }
 
 export default LandingPageView;
-
-            // <img id='landingpageimg' src='./static/assets/landingpageimg.png'></img>
-        // <div className="container loginContainer vertical-center" id="backgroundDiv">
-        //   <div className="col-md-4 col-md-offset-1" id="leftContainer">
-        //     <div className="h1" id="upperText">Discover Your Network</div>
-        //     <div className="h3" id="middleText"></div>
-        //     <br />
-        //     <a className="btn btn-success" id="loginButton" href="/auth/github/callback">Log in with GitHub</a>
-        //   </div>
-        // </div>
-
-
-        // <Jumbotron id="jumbo">
-        //   <Grid>
-        //   <Col xs={11} xsOffset={1}>
-        //     <img id='landingpageimg' src='./static/assets/landingpageimg.png'></img>
-        //     <h1>GitNet</h1>
-        //     <p>Discover your GitHub Network</p>
-        //     <p><Button bsStyle="primary">Log in with GitHub</Button></p>
-        //   </Col>
-        // </Grid>
-        // </Jumbotron>

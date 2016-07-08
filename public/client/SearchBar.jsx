@@ -132,8 +132,8 @@ class SearchBar extends React.Component {
             </InputGroup>
 
             {this.state.validationState === 'error' && this.state.errorType === 'badQuery' 
-              && this.state.dropDownVal === "Repos" ? <ControlLabel id='controllabel'>Please input a valid query 
-              using the following format: 'owner/repoName' e.g. facebook/react</ControlLabel> : <a></a> }
+              && this.state.dropDownVal === "Repos" ? <div class='container-fluid' id='ctrlLabelBg'><ControlLabel id='controllabel'>Please input a valid query 
+              using the following format: 'owner/repoName' e.g. facebook/react</ControlLabel></div> : <a></a> }
             {this.state.validationState === 'error' && this.state.errorType === 'badQuery' 
               && this.state.dropDownVal === "Users" ? <ControlLabel id='controllabel'>Please input a valid 
               username with no special characters</ControlLabel> : <a></a> }

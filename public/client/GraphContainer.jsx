@@ -23,15 +23,13 @@ export default class GraphContainer extends React.Component {
   render () {
     let style = this.labelStyle;
     return (
-      <Grid fluid={true}>
-        <Col xs={10} xsOffset={1}>
+      <div>
           <pre id='error' style={{ visibility: 'hidden', color: '#000' }}></pre>
           <div id='graph' className='panel-body'>
             <span id='label' style={ style }></span>
             <Graph />
           </div>
-        </Col>
-      </Grid>
+        </div>
     );
   }
 }
