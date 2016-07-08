@@ -45,7 +45,7 @@
 
 
 ## Schema
-!Schema](docs/schema.png)
+![Schema](docs/schema.png)
 
 
 
