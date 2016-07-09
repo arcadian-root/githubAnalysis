@@ -2,8 +2,8 @@
 * Visualization of Github Network by Contribution to Repositories
 * Deployed Link: [http://192.241.226.71:44100/](http://192.241.226.71:44100/)
 
-  * Explore your Github network by contribution to repositories.
-    ![Screenshot](docs/screenshot1.png)
+  Explore your Github network by contribution to repositories.
+  ![Screenshot](docs/screenshot1.png)
 
 
 ## Getting Started on Localhost
