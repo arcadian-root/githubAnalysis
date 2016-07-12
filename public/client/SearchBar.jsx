@@ -78,6 +78,7 @@ class SearchBar extends React.Component {
       }
     }
   }
+  
   handleSearch (event) {
     if(event.charCode === 13) {
       let nodeType = this.state.dropDownVal;
